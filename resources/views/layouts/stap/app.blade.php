@@ -39,7 +39,7 @@
 <!-- Base Js File -->
 <script src="{{ asset('assets/stap') }}/js/sweetalert.min.js"></script>
 <script src="{{ asset('assets/stap') }}/js/webcamjs/webcam.min.js"></script>
-<script src="{{ asset('assets/stap') }}/js/sw-script.js"></script>
+{{-- <script src="{{ asset('assets/stap') }}/js/sw-script.js"></script> --}}
 <script type="text/javascript">
     async function transAjax(data) {
         html = null;

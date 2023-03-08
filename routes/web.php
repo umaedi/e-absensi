@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Stap\AbsenController;
 use App\Http\Controllers\Stap\DashboardController;
+use App\Http\Controllers\Stap\loginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,16 +16,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('stap.dashboard.index');
-// });
+Route::get('/', function () {
+
+    if (auth()->guard('stap')->check()) {
+        return redirect('/stap/dashboard');
+    }
+    return view('stap.login.index');
+});
+
 
 Route::prefix('stap')->group(function () {
-    Route::get('/dashboard', DashboardController::class);
+    //route login stap
+    Route::post('/login', loginController::class)->name('stap.login');
 
-    //route absensi
-    Route::controller(AbsenController::class)->group(function () {
-        Route::get('absent', 'index')->name('stap.absent');
-        Route::post('absent/store', 'store')->name('stap.absen.store');
+    Route::middleware('stap')->group(function () {
+        //route dashboard stap
+        Route::get('/dashboard', DashboardController::class)->name('stap.dashboard');
+
+        //route absensi
+        Route::controller(AbsenController::class)->group(function () {
+            Route::get('absent', 'index')->name('stap.absent');
+            Route::post('absent/store', 'store')->name('stap.absen.store');
+        });
     });
 });

@@ -1,4 +1,4 @@
-<div class="appBottomMenu"><a href="./" class="item">
+<div class="appBottomMenu"><a href="{{ route('stap.dashboard') }}" class="item">
     <div class="col"><ion-icon name="home-outline"></ion-icon><strong>Home</strong></div>
 </a><a href="absent" class="item">
     <div class="col"><ion-icon name="camera-outline"></ion-icon><strong>Absen</strong></div>

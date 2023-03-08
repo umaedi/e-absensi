@@ -16,8 +16,12 @@
     <div class="section wallet-card-section pt-1">
         <div class="wallet-card">
             <div class="balance">
-                <div class="left"><span class="title"> Selamat Pagi</span>
-                    <h1 class="total">Dev</h1>
+                @if (date('H') < '10')
+                    <div class="left"><span class="title"> Selamat Pagi</span>
+                @elseif('H' > '15')
+                    <div class="left"><span class="title"> Selamat Sore</span>
+                @endif
+                    <h1 class="total">{{ auth()->guard('stap')->user()->name }}</h1>
                 </div>
             </div>
             <div class="wallet-footer">
@@ -45,7 +49,7 @@
             <div class="col-6"><a href="./absent">
                     <div class="stat-box bg-primary">
                         <div class="title text-white">Absen Masuk</div>
-                        @if ($data['absen']['jam_masuk'] !== "")
+                        @if (isset($data['absen']['jam_masuk']))
                             <div class="value text-white">Sudah absen</div>
                         @else
                             <div class="value text-white">Belum absen</div>
@@ -55,7 +59,7 @@
             <div class="col-6">
                 <div class="stat-box bg-secondary">
                     <div class="title text-white">Absen Pulang</div>
-                    @if ($data['absen']['jam_pulang'] !== "")
+                    @if (isset($data['absen']['jam_pulang']))
                             <div class="value text-white">Sudah absen</div>
                         @else
                             <div class="value text-white">Belum absen</div>
@@ -66,25 +70,20 @@
     </div>
     <div class="section mt-4">
         <div class="section-title mb-1">Absensi Bulan
-            <select class="select select-change text-primary" required>
-                <option value="01">Januari</option>
-                <option value="02">Februari</option>
-                <option value="03">Maret</option>
-                <option value="04">April</option>
-                <option value="05">Mei</option>
-                <option value="06">Juni</option>
-                <option value="07">Juli</option>
-                <option value="08">Agustus</option>
-                <option value="09">September</option>
-                <option value="10">Oktober</option>
-                <option value="12">November</option>
-                <option value="12">Desember</option>
-            </select><span class="text-primary">2023</span>
-        </div>
-        <div class="transactions">
-            <div class="row">
-                <div class="load-home" style="display:contents"></div>
-            </div>
+            <select id="getBulan" class="select select-change text-primary" name="bulan" required>
+                <option value="1" {{ date('n') == '1' ? 'selected' : '' }}>Januari</option>
+                <option value="2" {{ date('n') == '2' ? 'selected' : '' }}>Februari</option>
+                <option value="3" {{ date('n') == '3' ? 'selected' : '' }}>Maret</option>
+                <option value="4" {{ date('n') == '4' ? 'selected' : '' }}>April</option>
+                <option value="5" {{ date('n') == '5' ? 'selected' : '' }}>Mei</option>
+                <option value="6" {{ date('n') == '6' ? 'selected' : '' }}>Juni</option>
+                <option value="7" {{ date('n') == '7' ? 'selected' : '' }}>Juli</option>
+                <option value="8" {{ date('n') == '8' ? 'selected' : '' }}>Agustus</option>
+                <option value="9" {{ date('n') == '9' ? 'selected' : '' }}>September</option>
+                <option value="10" {{ date('n') == '10' ? 'selected' : '' }}>Oktober</option>
+                <option value="12" {{ date('n') == '11' ? 'selected' : '' }}>November</option>
+                <option value="12" {{ date('n') == '12' ? 'selected' : '' }}>Desember</option>
+            </select><span class="text-primary">{{ date('Y') }}</span>
         </div>
     </div>
     <div class="section mt-2 mb-2">
@@ -103,13 +102,14 @@
         $(document).ready(function() {
             loadData();
 
-            $('#x-bulan').change(function() {
+            $('#getBulan').change(function() {
                 filterData();
             });
         });
 
         function filterData() {
-            bulan = $('#x-bulan').val();
+            bulan = $('#getBulan').val();
+            loadData();
         }
 
         async function loadData() {

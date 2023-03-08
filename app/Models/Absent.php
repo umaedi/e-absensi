@@ -18,5 +18,7 @@ class Absent extends Model
         'lat_long_pulang',
         'photo_masuk',
         'photo_pulang',
+        'bulan',
+        'tahun',
     ];
 }

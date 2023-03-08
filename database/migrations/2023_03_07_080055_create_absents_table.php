@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('stap_id');
             $table->foreignId('dinas_id');
             $table->string('tanggal');
+            $table->string('bulan');
+            $table->string('tahun');
             $table->string('jam_masuk');
             $table->string('jam_pulang')->nullable();
             $table->string('lat_long_masuk');

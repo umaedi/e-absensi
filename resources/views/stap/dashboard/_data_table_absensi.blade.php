@@ -8,9 +8,10 @@
         </tr>
     </thead>
     <tbody>
+        <?php $no = 1 ?>
         @forelse ($table as $tb)
             <tr>
-                <th scope="row">1</th>
+                <th scope="row">{{ $no++ }}</th>
                 <td>{{ $tb->tanggal }}</td>
                 <td>{{ $tb->jam_masuk }}</td>
                 <td>{{ $tb->jam_pulang }}</td>

@@ -23,32 +23,41 @@
             </div>
         </div>
         
-            <div class="wallet-footer text-center">
-                <div class="row justify-content-center">
-                    <div class="col-md-12">
-                        <input id="x-src" type="hidden" name="image">
-                        <div id="results" class="webcam-capture-body text-center">
-                                <div class="webcam-capture img-fluid"></div>
-                                <div class="form-group basic">
-                                    <button class="btn btn-success btn-lg btn-block" onclick="captureimage(0)">
-                                        Absen Masuk
-                                </button>
+        <div class="row justify-content-center">
+            <div class="wallet-footer">
+                <div class="col-md-12">
+                    <input id="x-src" type="hidden" name="image">
+                    <div id="results" class="webcam-capture-body text-center">
+                        <div class="webcam-capture img-fluid">
+                            <div class="x-selfie-img">
+                                <img class="img-fluid lazyload" data-src="{{ asset('assets') }}/stap/img/selfie.png" alt="">
                             </div>
+                        </div>
+                            <div class="form-group basic">
+                                <button id="x-absent" class="btn btn-success btn-lg btn-block" onclick="openCamera(0)">
+                                    Ambil photo selfi Anda
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </div>
 </div>
 @endsection
 @push('js')
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" async=""></script>
 <script type="text/javascript">
 
 var latLong = "";
 var image = "";
+var shutter = new Audio();
 
-$(document).ready(function getLocation() {
+</script>
+
+<script type="text/javascript">
+function openCamera() {
+
     if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
     }else {
@@ -56,13 +65,14 @@ $(document).ready(function getLocation() {
     }
 
     function successCallback(position) {
+        setCamera();
         return latLong =  ""+ position.coords.latitude + ","+position.coords.longitude + "";
     }
 
 
     function errorCallback(error) {
         if(error.code == 1) {
-            swal({title: 'Oops!', text:'Anda telah memutuskan untuk tidak membagikan posisi Anda, tetapi tidak apa-apa. Kami tidak akan meminta Anda lagi.', icon: 'error', timer: 3000,});
+            swal({title: 'Oops!', text:'Mohon untuk mengaktifkan lokasi Anda', icon: 'error', timer: 3000,});
         } else if(error.code == 2) {
             swal({title: 'Oops!', text:'Jaringan tidak aktif atau layanan penentuan posisi tidak dapat dijangkau.', icon: 'error', timer: 3000,});
         } else if(error.code == 3) {
@@ -70,77 +80,73 @@ $(document).ready(function getLocation() {
         } else {
             swal({title: 'Oops!', text:'Waktu percobaan habis sebelum bisa mendapatkan data lokasi.', icon: 'error', timer: 3000,});
         }
+
     }
-});
-</script>
 
-<script type="text/javascript">
-//set camera
-Webcam.set({
-        width: 590,height: 460,
-        image_format: 'jpeg',
-        jpeg_quality:80,
-    });
+    function setCamera() {
+        //set camera
+        Webcam.set({
+                width: 490,height: 450,
+                image_format: 'jpeg',
+                jpeg_quality:80,
+            });
 
-    var cameras = new Array();
-    navigator.mediaDevices.enumerateDevices()
-    .then(function(devices) {
-        devices.forEach(function(device) {
-        var i = 0;
-            if(device.kind=== "videoinput"){ 
-                cameras[i]= device.deviceId;
-                i++;
-            }
+        var cameras = new Array();
+        navigator.mediaDevices.enumerateDevices()
+        .then(function(devices) {
+            devices.forEach(function(device) {
+            var i = 0;
+                if(device.kind=== "videoinput"){ 
+                    cameras[i]= device.deviceId;
+                    i++;
+                }
+            });
+        })
+
+        Webcam.set('constraints',{
+            width: 490,
+            height: 450,
+            image_format: 'jpeg',
+            jpeg_quality:80,
+            sourceId: cameras[0]
         });
-    })
 
-    Webcam.set('constraints',{
-        width: 590,
-        height: 460,
-        image_format: 'jpeg',
-        jpeg_quality:80,
-        sourceId: cameras[0]
-    });
-
-    Webcam.attach('.webcam-capture');
-    var shutter = new Audio();
-    shutter.autoplay = false;
-    shutter.src = navigator.userAgent.match(/Firefox/) ? 'shutter.ogg' : '/assets/stap/shutter.mp3';
-
-    function captureimage() {
-        shutter.play();
-        Webcam.snap( function(data_uri) {
-            document.getElementById('x-src').value = data_uri;
-            document.getElementById('results').innerHTML = 
-            `
-                <img class="img-fluid" id="imageprev" style="border-radius: 15px" src="${data_uri}"/>;
-                <div class="mt-3">
-                    <button onclick="absenStore()" class="btn btn-primary">Isi Absen</button>
-                    <button onclik="resetCamera()" class="btn btn-warning">Coba Lagi</button>
-                </div>
-            `
-            return image = data_uri;
-        } );
-
+        Webcam.attach('.webcam-capture');
+        shutter.autoplay = false;
+        shutter.src = navigator.userAgent.match(/Firefox/) ? 'shutter.ogg' : '/assets/stap/shutter.mp3';
+        document.getElementById('x-absent').setAttribute('onclick', 'captureimage()');
     }
+}
+
+function captureimage() {
+    shutter.play();
+    Webcam.snap( function(data_uri) {
+        document.getElementById('x-src').value = data_uri;
+        document.getElementById('results').innerHTML = 
+        `
+            <img class="x-img-fluid" id="imageprev" style="border-radius: 15px" src="${data_uri}"/>;
+            <div class="mt-3">
+                <button onclick="absenStore()" class="btn btn-primary">Isi Absen</button>
+                <button id="x-resetCamera" class="btn btn-warning">Coba Lagi</button>
+            </div>
+        `
+        Webcam.reset();
+        document.getElementById('x-resetCamera').setAttribute('onclick', 'resetCamera()');
+        return image = data_uri;
+    } );
+
+}
+
+function resetCamera()
+{
+    window.location.reload('/stap/absent');
+}
+
+
 </script>
 
 <script type="text/javascript">
      //isi absen
-     async function transAjax(data) {
-        html = null;
-        data.headers = {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-        await $.ajax(data).done(function(res) {
-            html = res;
-        })
-            .fail(function() {
-                return false;
-            })
-        return html
-    }
-
     async function absenStore() {
             var param = {
                 method: 'POST',
@@ -158,7 +164,6 @@ Webcam.set({
             }).catch((err) => {
                 console.log(err);
                 swal({text: "Mohon Maaf Absen gagal!", icon: 'error', timer: 3000,}).then(() => {
-                    // window.location.reload();
                 });
         });
     }

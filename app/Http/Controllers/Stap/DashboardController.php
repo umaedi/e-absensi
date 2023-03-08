@@ -20,7 +20,10 @@ class DashboardController extends Controller
             $stap_id = 1;
             $absent = Absent::query();
 
-            // $bulan = \request()->get('bulan', date('n'));
+            if (\request()->bulan) {
+                $absent->where('bulan', request()->bulan);
+            }
+
             $data['table'] =  $absent->where('stap_id', $stap_id)->latest()->limit(5)->get();
             return view('stap.dashboard._data_table_absensi', $data);
         }
