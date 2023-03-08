@@ -24,13 +24,17 @@
         </div>
         
             <div class="wallet-footer text-center">
-                <input id="x-src" type="hidden" name="image">
-                <div id="results" class="webcam-capture-body text-center">
-                        <div class="webcam-capture"></div>
-                        <div class="form-group basic">
-                            <button class="btn btn-success btn-lg btn-block" onclick="captureimage(0)">
-                                Absen Masuk
-                        </button>
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <input id="x-src" type="hidden" name="image">
+                        <div id="results" class="webcam-capture-body text-center">
+                                <div class="webcam-capture img-fluid"></div>
+                                <div class="form-group basic">
+                                    <button class="btn btn-success btn-lg btn-block" onclick="captureimage(0)">
+                                        Absen Masuk
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -109,7 +113,7 @@ Webcam.set({
             document.getElementById('x-src').value = data_uri;
             document.getElementById('results').innerHTML = 
             `
-                <img  id="imageprev" style="border-radius: 15px" src="${data_uri}"/>;
+                <img class="img-fluid" id="imageprev" style="border-radius: 15px" src="${data_uri}"/>;
                 <div class="mt-3">
                     <button onclick="absenStore()" class="btn btn-primary">Isi Absen</button>
                     <button onclik="resetCamera()" class="btn btn-warning">Coba Lagi</button>

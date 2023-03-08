@@ -18,12 +18,11 @@ class AbsenController extends Controller
 
     public function store(Request $request)
     {
-
         if (\request()->ajax()) {
             $absent = Absent::query();
-
             $tanggal = $absent->where('stap_id', 1)->pluck('tanggal')->first();
-            if ($tanggal == date('m-d-Y')) {
+
+            if ($tanggal == date('d-m-Y')) {
 
                 $img = $request->image;
                 $folderPath = "public/stap/img/";
@@ -42,10 +41,10 @@ class AbsenController extends Controller
                 $dinas_id = 1;
 
                 try {
-                    $absent->update([
+                    $absent->where('stap_id', 1)->update([
                         'stap_id'   => $stap_id,
                         'dinas_id'  => $dinas_id,
-                        'tanggal'   => date('m-d-Y'),
+                        'tanggal'   => date('d-m-Y'),
                         'jam_pulang' => date('H:i:s'),
                         'lat_long_pulang'   => $request->latLong,
                         'photo_pulang'     => $fileName,
@@ -86,7 +85,7 @@ class AbsenController extends Controller
                 Absent::create([
                     'stap_id'   => $stap_id,
                     'dinas_id'  => $dinas_id,
-                    'tanggal'   => date('m-d-Y'),
+                    'tanggal'   => date('d-m-Y'),
                     'jam_masuk' => date('H:i:s'),
                     'lat_long_masuk'   => $request->latLong,
                     'photo_masuk'     => $fileName,

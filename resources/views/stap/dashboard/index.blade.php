@@ -45,13 +45,21 @@
             <div class="col-6"><a href="./absent">
                     <div class="stat-box bg-primary">
                         <div class="title text-white">Absen Masuk</div>
-                        <div class="value text-white">Belum absen</div>
+                        @if ($data['absen']['jam_masuk'] !== "")
+                            <div class="value text-white">Sudah absen</div>
+                        @else
+                            <div class="value text-white">Belum absen</div>
+                        @endif
                     </div>
                 </a></div>
             <div class="col-6">
                 <div class="stat-box bg-secondary">
                     <div class="title text-white">Absen Pulang</div>
-                    <div class="value text-white">Belum Absen</div>
+                    @if ($data['absen']['jam_pulang'] !== "")
+                            <div class="value text-white">Sudah absen</div>
+                        @else
+                            <div class="value text-white">Belum absen</div>
+                        @endif
                 </div>
             </div>
         </div>
@@ -61,7 +69,7 @@
             <select class="select select-change text-primary" required>
                 <option value="01">Januari</option>
                 <option value="02">Februari</option>
-                <option value="03" selected>Maret</option>
+                <option value="03">Maret</option>
                 <option value="04">April</option>
                 <option value="05">Mei</option>
                 <option value="06">Juni</option>
@@ -82,30 +90,43 @@
     <div class="section mt-2 mb-2">
         <div class="section-title">1 Minggu Terakhir</div>
         <div class="card">
-            <div class="table-responsive">
-                <table class="table table-dark rounded bg-primary">
-                    <thead>
-                        <tr>
-                            <th scope="col">Tanggal</th>
-                            <th scope="col">Jam Masuk</th>
-                            <th scope="col">Jam Pulang</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+            <div class="table-responsive" id="x-data-table">
+                
             </div>
         </div>
     </div>
 </div>
-<div class="appBottomMenu"><a href="./" class="item">
-        <div class="col"><ion-icon name="home-outline"></ion-icon><strong>Home</strong></div>
-    </a><a href="{{ route('stap.absent') }}" class="item">
-        <div class="col"><ion-icon name="camera-outline"></ion-icon><strong>Absen</strong></div>
-    </a><a href="./cuty" class="item">
-        <div class="col"><ion-icon name="calendar-outline"></ion-icon><strong>Cuti</strong></div>
-    </a><a href="./history" class="item">
-        <div class="col"><ion-icon name="document-text-outline"></ion-icon><strong>History</strong></div>
-    </a><a href="./profile" class="item">
-        <div class="col"><ion-icon name="person-outline"></ion-icon><strong>Profil</strong></div>
-    </a></div>
 @endsection
+@push('js')
+    <script type="text/javascript">
+        var bulan = "";
+        $(document).ready(function() {
+            loadData();
+
+            $('#x-bulan').change(function() {
+                filterData();
+            });
+        });
+
+        function filterData() {
+            bulan = $('#x-bulan').val();
+        }
+
+        async function loadData() {
+            var param = {
+                method: 'GET',
+                url: '{{ url()->current() }}',
+                data: {
+                    load: 'table',
+                    bulan: bulan,
+                }
+            }
+            await transAjax(param).then((result) => {
+                $('#x-data-table').html(result)
+
+            }).catch((err) => {
+                console.log('error');
+        });
+    }
+    </script>
+@endpush

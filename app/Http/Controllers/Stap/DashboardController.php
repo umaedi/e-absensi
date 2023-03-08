@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Stap;
 
 use App\Http\Controllers\Controller;
+use App\Models\Absent;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -15,6 +16,17 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('stap.dashboard.index');
+        if (\request()->ajax()) {
+            $stap_id = 1;
+            $absent = Absent::query();
+
+            // $bulan = \request()->get('bulan', date('n'));
+            $data['table'] =  $absent->where('stap_id', $stap_id)->latest()->limit(5)->get();
+            return view('stap.dashboard._data_table_absensi', $data);
+        }
+
+        $data['absen'] = Absent::where('stap_id', 1)->where('tanggal', date('d-m-Y'))->first();
+        $data['title'] = 'Dashboard Stap';
+        return view('stap.dashboard.index', compact('data'));
     }
 }

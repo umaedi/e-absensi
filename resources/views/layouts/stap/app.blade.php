@@ -4,9 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover">
-    <title>DISKOMINFO TUBA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ $data['title'] ?? "Dashboard" }}</title>
+
     <meta name="theme-color" content="#FF396F">
     <meta name="msapplication-navbutton-color" content="#FF396F">
     <meta name="apple-mobile-web-app-status-bar-style" content="#FF396F">
@@ -39,6 +40,21 @@
 <script src="{{ asset('assets/stap') }}/js/sweetalert.min.js"></script>
 <script src="{{ asset('assets/stap') }}/js/webcamjs/webcam.min.js"></script>
 <script src="{{ asset('assets/stap') }}/js/sw-script.js"></script>
+<script type="text/javascript">
+    async function transAjax(data) {
+        html = null;
+        data.headers = {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        await $.ajax(data).done(function(res) {
+            html = res;
+        })
+            .fail(function() {
+                return false;
+            })
+        return html
+    }
+</script>
 @stack('js')
 </body>
 

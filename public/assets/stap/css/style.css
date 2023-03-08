@@ -5059,7 +5059,7 @@ a.close.disabled {
   vertical-align: text-top !important; }
 
 .bg-primary {
-  background-color: #007bff !important; }
+  background-color: #409eff !important; }
 
 a.bg-primary:focus, a.bg-primary:hover, button.bg-primary:focus, button.bg-primary:hover {
   background-color: #0062cc !important; }
@@ -7191,7 +7191,7 @@ a.bg-dark:focus, a.bg-dark:hover, button.bg-dark:focus, button.bg-dark:hover {
   color: #fff !important; }
 
 .text-primary {
-  color: #007bff !important; }
+  color: #409eff !important; }
 
 a.text-primary:focus, a.text-primary:hover {
   color: #0056b3 !important; }
@@ -9466,7 +9466,7 @@ a.badge-dark {
   margin-left: 7px; }
 
 .bg-primary {
-  background: #6236FF !important;
+  background: #409eff !important;
   color: #FFF; }
 
 .bg-secondary {
@@ -9498,7 +9498,7 @@ a.badge-dark {
 
 .text-primary,
 a.text-primary {
-  color: #6236FF !important; }
+  color: #409eff !important; }
 
 .text-secondary,
 a.text-secondary {
@@ -10387,7 +10387,7 @@ a.text-dark {
     content: "";
     display: block;
     height: 140px;
-    background: #6236FF; }
+    background: #409eff; }
 
 .wallet-card {
   background: #ffffff;
