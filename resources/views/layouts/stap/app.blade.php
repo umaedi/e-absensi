@@ -8,9 +8,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $data['title'] ?? "Dashboard" }}</title>
 
-    <meta name="theme-color" content="#FF396F">
-    <meta name="msapplication-navbutton-color" content="#FF396F">
-    <meta name="apple-mobile-web-app-status-bar-style" content="#FF396F">
+    <meta name="theme-color" content="#6777ef">
+    <meta name="msapplication-navbutton-color" content="#6777ef">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#6777ef">
     <meta name="robots" content="index, follow">
     <meta name="description" content="DISKOMINFO TUBA">
     <meta name="keywords" content="DISKOMINFO TUBA">

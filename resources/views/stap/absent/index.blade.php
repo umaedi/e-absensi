@@ -15,8 +15,12 @@
 <div id="appCapsule">
     <div class="wallet-card">
         <div class="balance">
-            <div class="left">
-                <span class="title"> Selamat Pagi</span><h4>Devkh</h4>
+            @if (date('H') < '10')
+            <div class="left"><span class="title"> Selamat Pagi</span>
+            @elseif('H' > '15')
+            <div class="left"><span class="title"> Selamat Sore</span>
+            @endif
+            <h1 class="total">{{ auth()->guard('stap')->user()->name }}</h1>
             </div>
             <div class="right">
                 <span class="title">07 Mar 2023 </span><h4><span class="clock">10.59.22</span></h4>
@@ -29,7 +33,7 @@
                     <input id="x-src" type="hidden" name="image">
                     <div id="results" class="webcam-capture-body text-center">
                         <div class="webcam-capture img-fluid">
-                            <div class="x-selfie-img">
+                            <div class="x-selfie-img container">
                                 <img class="img-fluid lazyload" data-src="{{ asset('assets') }}/stap/img/selfie.png" alt="">
                             </div>
                         </div>
@@ -167,5 +171,13 @@ function resetCamera()
                 });
         });
     }
+
+jQuery(function($) {
+  setInterval(function() {
+    var date = new Date(),
+        time = date.toLocaleTimeString();
+    $(".clock").html(time);
+  }, 1000);
+});
 </script>
 @endpush
