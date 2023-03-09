@@ -11,4 +11,9 @@ class Dinas extends Model
     protected $fillable = [
         'nama_dinas'
     ];
+
+    public function stap()
+    {
+        return $this->hasMany(Stap::class);
+    }
 }

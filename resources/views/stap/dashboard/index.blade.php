@@ -23,6 +23,9 @@
                 @endif
                     <h1 class="total">{{ auth()->guard('stap')->user()->name }}</h1>
                 </div>
+                <div class="right">
+                    <span class="title">{{ $data['tanggal'] }} </span><h4><span class="clock">10.59.22</span></h4>
+                </div>
             </div>
             <div class="wallet-footer">
                 <div class="item"><a href="./absent">
@@ -33,7 +36,7 @@
                         <div class="icon-wrapper bg-primary"><ion-icon name="calendar-outline"></ion-icon></div>
                         <strong>Cuti</strong>
                     </a></div>
-                <div class="item"><a href="./history">
+                <div class="item"><a href="{{ route('stap.histories') }}">
                         <div class="icon-wrapper bg-success"><ion-icon name="document-text-outline"></ion-icon>
                         </div><strong>History</strong>
                     </a></div>
@@ -46,48 +49,119 @@
     </div>
     <div class="section">
         <div class="row mt-2">
-            <div class="col-6"><a href="./absent">
-                    <div class="stat-box bg-primary">
-                        <div class="title text-white">Absen Masuk</div>
-                        @if (isset($data['absen']['jam_masuk']))
-                            <div class="value text-white">Sudah absen</div>
-                        @else
-                            <div class="value text-white">Belum absen</div>
-                        @endif
-                    </div>
-                </a></div>
+            @if (empty($data['absen']['jam_masuk']))
             <div class="col-6">
-                <div class="stat-box bg-secondary">
-                    <div class="title text-white">Absen Pulang</div>
-                    @if (isset($data['absen']['jam_pulang']))
-                            <div class="value text-white">Sudah absen</div>
-                        @else
-                            <div class="value text-white">Belum absen</div>
-                        @endif
+                <a href="./absent">
+                    <div class="stat-box bg-secondary">
+                        <div class="title text-white">Absen Masuk</div>
+                        <div class="value text-white">Belum absen</div>
+                    </div>
+                </a>
+            </div>
+            @else
+            <div class="col-6">
+                <div class="stat-box bg-primary">
+                    <div class="title text-white">Absen Masuk</div>
+                    <div class="value text-white">Sudah absen</div>
                 </div>
             </div>
+            @endif
+       
+            @if (empty($data['absen']['jam_pulang']))
+            <div class="col-6">
+                <a href="./absent">
+                    <div class="stat-box bg-secondary">
+                        <div class="title text-white">Absen Pulang</div>
+                        <div class="value text-white">Belum absen</div>
+                    </div>
+                </a>
+            </div>
+            @else
+            <div class="col-6">
+                <div class="stat-box bg-primary">
+                    <div class="title text-white">Absen Pulang</div>
+                    <div class="value text-white">Sudah absen</div>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
     <div class="section mt-4">
         <div class="section-title mb-1">Absensi Bulan
             <select id="getBulan" class="select select-change text-primary" name="bulan" required>
-                <option value="1" {{ date('n') == '1' ? 'selected' : '' }}>Januari</option>
-                <option value="2" {{ date('n') == '2' ? 'selected' : '' }}>Februari</option>
-                <option value="3" {{ date('n') == '3' ? 'selected' : '' }}>Maret</option>
-                <option value="4" {{ date('n') == '4' ? 'selected' : '' }}>April</option>
-                <option value="5" {{ date('n') == '5' ? 'selected' : '' }}>Mei</option>
-                <option value="6" {{ date('n') == '6' ? 'selected' : '' }}>Juni</option>
-                <option value="7" {{ date('n') == '7' ? 'selected' : '' }}>Juli</option>
-                <option value="8" {{ date('n') == '8' ? 'selected' : '' }}>Agustus</option>
-                <option value="9" {{ date('n') == '9' ? 'selected' : '' }}>September</option>
-                <option value="10" {{ date('n') == '10' ? 'selected' : '' }}>Oktober</option>
-                <option value="12" {{ date('n') == '11' ? 'selected' : '' }}>November</option>
-                <option value="12" {{ date('n') == '12' ? 'selected' : '' }}>Desember</option>
+                <option value="01" {{ date('m') == '01' ? 'selected' : '' }}>Januari</option>
+                <option value="02" {{ date('m') == '02' ? 'selected' : '' }}>Februari</option>
+                <option value="03" {{ date('m') == '03' ? 'selected' : '' }}>Maret</option>
+                <option value="04" {{ date('m') == '04' ? 'selected' : '' }}>April</option>
+                <option value="05" {{ date('m') == '05' ? 'selected' : '' }}>Mei</option>
+                <option value="06" {{ date('m') == '06' ? 'selected' : '' }}>Juni</option>
+                <option value="07" {{ date('m') == '07' ? 'selected' : '' }}>Juli</option>
+                <option value="08" {{ date('m') == '08' ? 'selected' : '' }}>Agustus</option>
+                <option value="09" {{ date('m') == '09' ? 'selected' : '' }}>September</option>
+                <option value="10" {{ date('m') == '10' ? 'selected' : '' }}>Oktober</option>
+                <option value="12" {{ date('m') == '11' ? 'selected' : '' }}>November</option>
+                <option value="12" {{ date('m') == '12' ? 'selected' : '' }}>Desember</option>
             </select><span class="text-primary">{{ date('Y') }}</span>
         </div>
     </div>
     <div class="section mt-2 mb-2">
-        <div class="section-title">1 Minggu Terakhir</div>
+        <div class="transactions"><div class="row"><div class="load-home" style="display:contents">
+            <div class="col-6 col-md-3 mb-2">
+                <a href="javascript:void(0)" class="item">
+                    <div class="detail">
+                        <div class="icon-block text-primary">
+                            <ion-icon name="log-in" role="img" class="md hydrated" aria-label="log in"></ion-icon>
+                        </div>
+                        <div>
+                            <strong>Hadir</strong>
+                            <p>{{ $data['hadir'] }} Hari</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 col-md-3 mb-2">
+                <a href="javascript:void(0)" class="item">
+                    <div class="detail">
+                        <div class="icon-block text-success">
+                            <ion-icon name="person" role="img" class="md hydrated" aria-label="person"></ion-icon>
+                        </div>
+                        <div>
+                            <strong>Izin</strong>
+                            <p>0 Hari</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="javascript:void(0)" class="item">
+                    <div class="detail">
+                        <div class="icon-block text-secondary">
+                           <ion-icon name="sad" role="img" class="md hydrated" aria-label="sad"></ion-icon>
+                        </div>
+                        <div>
+                            <strong>Sakit</strong>
+                            <p>0 Hari</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="javascript:void(0)" class="item">
+                    <div class="detail">
+                        <div class="icon-block text-danger">
+                          <ion-icon name="alarm" role="img" class="md hydrated" aria-label="alarm"></ion-icon>
+                        </div>
+                        <div>
+                            <strong>Terlambat</strong>
+                            <p>{{ $data['terlambat'] }} hari</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="section-title">1 Minggu Terakhir</div>
         <div class="card">
             <div class="table-responsive" id="x-data-table">
                 
@@ -128,5 +202,13 @@
                 console.log('error');
         });
     }
+
+    jQuery(function($) {
+        setInterval(function() {
+            var date = new Date(),
+                time = date.toLocaleTimeString();
+            $(".clock").html(time);
+        }, 1000);
+    });
     </script>
 @endpush

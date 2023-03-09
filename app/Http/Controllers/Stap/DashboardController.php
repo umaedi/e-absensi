@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Stap;
 
 use App\Http\Controllers\Controller;
 use App\Models\Absent;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -16,8 +17,9 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
+        $stap_id = auth()->guard('stap')->user()->id;
+
         if (\request()->ajax()) {
-            $stap_id = 1;
             $absent = Absent::query();
 
             if (\request()->bulan) {
@@ -28,7 +30,11 @@ class DashboardController extends Controller
             return view('stap.dashboard._data_table_absensi', $data);
         }
 
-        $data['absen'] = Absent::where('stap_id', 1)->where('tanggal', date('d-m-Y'))->first();
+        $data['absen'] = Absent::where('stap_id', $stap_id)->where('tanggal', date('d-m-Y'))->first();
+        $data['tanggal'] = Carbon::now()->format('d M Y');
+        $data['hadir'] = Absent::where('stap_id', $stap_id)->count();
+        $data['terlambat'] = Absent::where('stap_id', $stap_id)->where('jam_masuk', 'like', '%' . '10' . '%')->count();
+
         $data['title'] = 'Dashboard Stap';
         return view('stap.dashboard.index', compact('data'));
     }

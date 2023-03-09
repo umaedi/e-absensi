@@ -166,8 +166,7 @@ function resetCamera()
                     window.location.href = '/stap/dashboard';
                 });
             }).catch((err) => {
-                console.log(err);
-                swal({text: "Mohon Maaf Absen gagal!", icon: 'error', timer: 3000,}).then(() => {
+                swal({text: err.responseJSON.message, icon: 'error', timer: 3000,}).then(() => {
                 });
         });
     }

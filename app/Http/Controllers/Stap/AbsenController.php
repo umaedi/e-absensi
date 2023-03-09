@@ -19,10 +19,18 @@ class AbsenController extends Controller
     public function store(Request $request)
     {
         if (\request()->ajax()) {
+            $stap = auth()->guard('stap')->user();
             $absent = Absent::query();
-            $tanggal = $absent->where('stap_id', 1)->pluck('tanggal')->first();
+            $tanggal = $absent->where('stap_id', $stap->id)->pluck('tanggal')->first();
 
             if ($tanggal == date('d-m-Y')) {
+
+                if (date('H') < '15') {
+                    return response()->json([
+                        'success'   => false,
+                        'message'   => 'Mohon Maaf Absen Sore Belum Dibuka!'
+                    ], 403);
+                }
 
                 $img = $request->image;
                 $folderPath = "public/stap/img/";
@@ -37,15 +45,12 @@ class AbsenController extends Controller
                 $file = $folderPath . $fileName;
                 Storage::put($file, $image_base64);
 
-                $stap_id = 1;
-                $dinas_id = 1;
-
                 try {
                     $absent->where('stap_id', 1)->update([
-                        'stap_id'   => $stap_id,
-                        'dinas_id'  => $dinas_id,
+                        'stap_id'   => $stap->id,
+                        'dinas_id'  => $stap->dinas->id,
                         'tanggal'   => date('d-m-Y'),
-                        'bulan'     => date('n'),
+                        'bulan'     => date('m'),
                         'tahun'     => date('Y'),
                         'jam_pulang' => date('H:i:s'),
                         'lat_long_pulang'   => $request->latLong,
@@ -63,7 +68,7 @@ class AbsenController extends Controller
                 DB::commit();
                 return response()->json([
                     'success'   => true,
-                    'message'   => 'Anda berhasil mengisi absen'
+                    'message'   => 'Anda Berhasil Mengisi Absen Sore'
                 ]);
             }
 
@@ -80,15 +85,13 @@ class AbsenController extends Controller
             $file = $folderPath . $fileName;
             Storage::put($file, $image_base64);
 
-            $stap_id = 1;
-            $dinas_id = 1;
-
+            DB::beginTransaction();
             try {
                 Absent::create([
-                    'stap_id'   => $stap_id,
-                    'dinas_id'  => $dinas_id,
+                    'stap_id'   => $stap->id,
+                    'dinas_id'  => $stap->dinas->id,
                     'tanggal'   => date('d-m-Y'),
-                    'bulan'     => date('n'),
+                    'bulan'     => date('m'),
                     'tahun'     => date('Y'),
                     'jam_masuk' => date('H:i:s'),
                     'lat_long_masuk'   => $request->latLong,
@@ -96,17 +99,19 @@ class AbsenController extends Controller
                 ]);
             } catch (QueryException $e) {
                 DB::rollBack();
+                Storage::delete('public/stap/img' . $fileName);
+                dd('err');
 
                 return response()->json([
                     'success'   => false,
-                    'message'   => 'Mohon Maaf Absen gagal!'
-                ], 403);
+                    'message'   => 'Internal Server Error!'
+                ], 500);
             }
 
             DB::commit();
             return response()->json([
                 'success'   => true,
-                'message'   => 'Anda Berhasil Mengisi Absen'
+                'message'   => 'Anda Berhasil Mengisi Absen Pagi'
             ]);
         }
     }

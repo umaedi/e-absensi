@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Stap\AbsenController;
 use App\Http\Controllers\Stap\DashboardController;
+use App\Http\Controllers\Stap\HistoryController;
 use App\Http\Controllers\Stap\loginController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,5 +39,8 @@ Route::prefix('stap')->group(function () {
             Route::get('absent', 'index')->name('stap.absent');
             Route::post('absent/store', 'store')->name('stap.absen.store');
         });
+
+        //histori absensi
+        Route::get('/history', [HistoryController::class, 'index'])->name('stap.histories');
     });
 });
