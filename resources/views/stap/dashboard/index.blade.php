@@ -40,7 +40,7 @@
                         <div class="icon-wrapper bg-success"><ion-icon name="document-text-outline"></ion-icon>
                         </div><strong>History</strong>
                     </a></div>
-                <div class="item"><a href="./profile">
+                <div class="item"><a href="{{ route('stap.profile') }}">
                         <div class="icon-wrapper bg-warning"><ion-icon name="person-outline"></ion-icon></div>
                         <strong>Profil</strong>
                     </a></div>

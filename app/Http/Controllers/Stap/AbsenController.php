@@ -65,7 +65,6 @@ class AbsenController extends Controller
                     ], 403);
                 }
 
-                DB::commit();
                 return response()->json([
                     'success'   => true,
                     'message'   => 'Anda Berhasil Mengisi Absen Sore'
@@ -85,7 +84,6 @@ class AbsenController extends Controller
             $file = $folderPath . $fileName;
             Storage::put($file, $image_base64);
 
-            DB::beginTransaction();
             try {
                 Absent::create([
                     'stap_id'   => $stap->id,
@@ -98,9 +96,7 @@ class AbsenController extends Controller
                     'photo_masuk'     => $fileName,
                 ]);
             } catch (QueryException $e) {
-                DB::rollBack();
                 Storage::delete('public/stap/img' . $fileName);
-                dd('err');
 
                 return response()->json([
                     'success'   => false,
@@ -108,7 +104,6 @@ class AbsenController extends Controller
                 ], 500);
             }
 
-            DB::commit();
             return response()->json([
                 'success'   => true,
                 'message'   => 'Anda Berhasil Mengisi Absen Pagi'

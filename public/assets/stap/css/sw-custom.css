@@ -74,8 +74,8 @@ div.dataTables_info {
 
 .pagination>li>a:hover{
     color: #ffffff;
-    background:#ff396f;
-    border-color:#ff396f;
+    background:#6777ef;
+    border-color:#6777ef;
 }
 
 .pagination>li:first-child>a, .pagination>li:first-child>span{

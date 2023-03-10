@@ -6,7 +6,7 @@
     <div class="col"><ion-icon name="calendar-outline"></ion-icon><strong>Cuti</strong></div>
 </a><a href="./history" class="item">
     <div class="col"><ion-icon name="document-text-outline"></ion-icon><strong>History</strong></div>
-</a><a href="./profile" class="item">
+</a><a href="{{ route('stap.profile') }}" class="item">
     <div class="col"><ion-icon name="person-outline"></ion-icon><strong>Profil</strong></div>
 </a>
 </div>

@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\Stap::create([
             'dinas_id'  => 1,
+            'jabatan_id'    => 1,
+            'nip'       => '12345678910',
             'name'      => 'User',
             'email'     => 'user@gmail.com',
             'password'  => 'user123',
@@ -39,6 +41,16 @@ class DatabaseSeeder extends Seeder
 
         foreach ($dinas as $value) {
             \App\Models\Dinas::create($value);
+        }
+
+        $jabatan = [
+            ['nama_jabatan' => 'Kabid'],
+            ['nama_jabatan' => 'Kasi'],
+        ];
+
+        foreach ($jabatan as $value) {
+            # code...
+            \App\Models\Jabatan::create($value);
         }
     }
 }

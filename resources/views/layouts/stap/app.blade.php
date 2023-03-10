@@ -21,12 +21,15 @@
     <link rel="stylesheet" href="{{ asset('assets/stap') }}/css/style.css">
     <link rel="stylesheet" href="{{ asset('assets/stap') }}/css/sw-custom.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet" href="{{ asset('assets/stap') }}/css/fakeLoader.min.css">
     @vite([])
 </head>
 
 <body>
+<div class="fakeLoader"></div>
 
 @yield('content')
+@include('layouts.stap.navbar')
 @include('layouts.stap.button-action')
 @include('layouts.stap.footer')
 
@@ -39,21 +42,29 @@
 <!-- Base Js File -->
 <script src="{{ asset('assets/stap') }}/js/sweetalert.min.js"></script>
 <script src="{{ asset('assets/stap') }}/js/webcamjs/webcam.min.js"></script>
+<script src="{{ asset('assets/stap') }}/js/fakeLoader.min.js"></script>
 {{-- <script src="{{ asset('assets/stap') }}/js/sw-script.js"></script> --}}
 <script type="text/javascript">
-    async function transAjax(data) {
-        html = null;
-        data.headers = {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-        await $.ajax(data).done(function(res) {
-            html = res;
-        })
-            .fail(function() {
-                return false;
-            })
-        return html
+$(document).ready(function loading() {
+    $.fakeLoader({
+        timeToHide:500,
+        spinner:"spinner7"
+    });
+});
+
+async function transAjax(data) {
+    html = null;
+    data.headers = {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
+    await $.ajax(data).done(function(res) {
+        html = res;
+    })
+        .fail(function() {
+            return false;
+        })
+    return html
+}
 </script>
 @stack('js')
 </body>

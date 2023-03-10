@@ -4,6 +4,7 @@ use App\Http\Controllers\Stap\AbsenController;
 use App\Http\Controllers\Stap\DashboardController;
 use App\Http\Controllers\Stap\HistoryController;
 use App\Http\Controllers\Stap\loginController;
+use App\Http\Controllers\Stap\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,5 +43,12 @@ Route::prefix('stap')->group(function () {
 
         //histori absensi
         Route::get('/history', [HistoryController::class, 'index'])->name('stap.histories');
+        Route::get('/history/print', [HistoryController::class, 'print'])->name('stap.histories.print');
+
+        Route::controller(ProfileController::class)->group(function () {
+            Route::get('/profile', 'index')->name('stap.profile');
+            Route::post('/profile/update', 'updateProfile');
+            Route::post('/profile/update/password', 'updatePassword');
+        });
     });
 });

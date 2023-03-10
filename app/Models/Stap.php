@@ -10,6 +10,8 @@ class Stap extends Authenticatable
     use HasFactory;
     protected $fillable = [
         'dinas_id',
+        'jabatan_id',
+        'nip',
         'name',
         'email',
         'no_tlp',
@@ -21,5 +23,10 @@ class Stap extends Authenticatable
     public function dinas()
     {
         return $this->belongsTo(Dinas::class);
+    }
+
+    public function jabatan()
+    {
+        return $this->belongsTo(Jabatan::class);
     }
 }
