@@ -13,8 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('izins', function (Blueprint $table) {
+        Schema::create('cuties', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('stap_id');
+            $table->string('tanggal_awal');
+            $table->string('tanggal_akhir');
+            $table->string('tanggal_masuk');
+            $table->string('jumlah_izin');
+            $table->string('keterangan');
+            $table->string('status');
             $table->timestamps();
         });
     }
@@ -26,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('izins');
+        Schema::dropIfExists('cuties');
     }
 };

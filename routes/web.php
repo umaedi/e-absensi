@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\Stap\AbsenController;
-use App\Http\Controllers\Stap\DashboardController;
-use App\Http\Controllers\Stap\HistoryController;
-use App\Http\Controllers\Stap\IzinController;
-use App\Http\Controllers\Stap\loginController;
-use App\Http\Controllers\Stap\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Stap\CutyController;
+use App\Http\Controllers\Stap\AbsenController;
+use App\Http\Controllers\Stap\loginController;
+use App\Http\Controllers\Stap\HistoryController;
+use App\Http\Controllers\Stap\ProfileController;
+use App\Http\Controllers\Stap\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,8 +52,9 @@ Route::prefix('stap')->group(function () {
             Route::post('/profile/update/password', 'updatePassword');
         });
 
-        Route::controller(IzinController::class)->group(function () {
-            Route::get('/izin', 'index')->name('stap.izin');
+        Route::controller(CutyController::class)->group(function () {
+            Route::get('/cuty', 'index')->name('stap.izin');
+            Route::post('/cuty/store', 'store');
         });
     });
 });

@@ -29,4 +29,9 @@ class Stap extends Authenticatable
     {
         return $this->belongsTo(Jabatan::class);
     }
+
+    public function cuty()
+    {
+        return $this->hasMany(Cuty::class);
+    }
 }
