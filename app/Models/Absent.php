@@ -20,5 +20,6 @@ class Absent extends Model
         'photo_pulang',
         'bulan',
         'tahun',
+        'status'
     ];
 }

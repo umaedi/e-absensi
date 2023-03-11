@@ -16,10 +16,14 @@
     <div class="section wallet-card-section pt-1">
         <div class="wallet-card">
             <div class="balance">
-                @if (date('H') < '10')
-                    <div class="left"><span class="title"> Selamat Pagi</span>
-                @elseif('H' > '15')
+                @if (date('H') >= '4' && date('H') < '10')
+                <div class="left"><span class="title"> Selamat Pagi</span>
+                @elseif(date('H') >= '10' && date('H') < '15')
+                    <div class="left"><span class="title"> Selamat Siang</span>
+                @elseif(date('H') >= '15' && date('H') < '18')
                     <div class="left"><span class="title"> Selamat Sore</span>
+                @else
+                <div class="left"><span class="title"> Selamat Malam</span>
                 @endif
                     <h1 class="total">{{ auth()->guard('stap')->user()->name }}</h1>
                 </div>
@@ -32,9 +36,9 @@
                         <div class="icon-wrapper bg-primary"><ion-icon name="camera-outline"></ion-icon></div>
                         <strong>Absen</strong>
                     </a></div>
-                <div class="item"><a href="./cuty">
+                <div class="item"><a href="{{ route('stap.izin') }}">
                         <div class="icon-wrapper bg-primary"><ion-icon name="calendar-outline"></ion-icon></div>
-                        <strong>Cuti</strong>
+                        <strong>Izin</strong>
                     </a></div>
                 <div class="item"><a href="{{ route('stap.histories') }}">
                         <div class="icon-wrapper bg-success"><ion-icon name="document-text-outline"></ion-icon>

@@ -20,12 +20,12 @@ class AbsenController extends Controller
     {
         if (\request()->ajax()) {
             $stap = auth()->guard('stap')->user();
-            $absent = Absent::query();
-            $tanggal = $absent->where('stap_id', $stap->id)->pluck('tanggal')->first();
 
-            if ($tanggal == date('d-m-Y')) {
+            $absent = Absent::where('stap_id', $stap->id)->latest()->first();
 
-                if (date('H') < '15') {
+            if (isset($absent->tanggal) == date('d-m-Y')) {
+
+                if (strtotime(date('H:i:s')) < strtotime('15:30:00')) {
                     return response()->json([
                         'success'   => false,
                         'message'   => 'Mohon Maaf Absen Sore Belum Dibuka!'
@@ -55,10 +55,9 @@ class AbsenController extends Controller
                         'jam_pulang' => date('H:i:s'),
                         'lat_long_pulang'   => $request->latLong,
                         'photo_pulang'     => $fileName,
+
                     ]);
                 } catch (QueryException $e) {
-                    DB::rollBack();
-
                     return response()->json([
                         'success'   => false,
                         'message'   => 'Mohon Maaf Absen gagal!'
@@ -69,45 +68,52 @@ class AbsenController extends Controller
                     'success'   => true,
                     'message'   => 'Anda Berhasil Mengisi Absen Sore'
                 ]);
-            }
+            } else {
+                $img = $request->image;
+                $folderPath = "public/stap/img/";
 
-            $img = $request->image;
-            $folderPath = "public/stap/img/";
+                $image_parts = explode(";base64,", $img);
+                $image_type_aux = explode("image/", $image_parts[0]);
+                $image_type = $image_type_aux[1];
 
-            $image_parts = explode(";base64,", $img);
-            $image_type_aux = explode("image/", $image_parts[0]);
-            $image_type = $image_type_aux[1];
+                $image_base64 = base64_decode($image_parts[1]);
+                $fileName = uniqid() . '.jpeg';
 
-            $image_base64 = base64_decode($image_parts[1]);
-            $fileName = uniqid() . '.jpeg';
+                $file = $folderPath . $fileName;
+                Storage::put($file, $image_base64);
 
-            $file = $folderPath . $fileName;
-            Storage::put($file, $image_base64);
+                if (strtotime(date('H:i:s')) > strtotime('10:00:00')) {
+                    $status = '2';
+                } else {
+                    $status = '1';
+                }
 
-            try {
-                Absent::create([
-                    'stap_id'   => $stap->id,
-                    'dinas_id'  => $stap->dinas->id,
-                    'tanggal'   => date('d-m-Y'),
-                    'bulan'     => date('m'),
-                    'tahun'     => date('Y'),
-                    'jam_masuk' => date('H:i:s'),
-                    'lat_long_masuk'   => $request->latLong,
-                    'photo_masuk'     => $fileName,
-                ]);
-            } catch (QueryException $e) {
-                Storage::delete('public/stap/img' . $fileName);
+                try {
+                    Absent::create([
+                        'stap_id'   => $stap->id,
+                        'dinas_id'  => $stap->dinas->id,
+                        'tanggal'   => date('d-m-Y'),
+                        'bulan'     => date('m'),
+                        'tahun'     => date('Y'),
+                        'jam_masuk' => date('H:i:s'),
+                        'lat_long_masuk'   => $request->latLong,
+                        'photo_masuk'     => $fileName,
+                        'status' => $status,
+                    ]);
+                } catch (QueryException $e) {
+                    Storage::delete('public/stap/img' . $fileName);
+
+                    return response()->json([
+                        'success'   => false,
+                        'message'   => 'Internal Server Error!'
+                    ], 500);
+                }
 
                 return response()->json([
-                    'success'   => false,
-                    'message'   => 'Internal Server Error!'
-                ], 500);
+                    'success'   => true,
+                    'message'   => 'Anda Berhasil Mengisi Absen Pagi'
+                ]);
             }
-
-            return response()->json([
-                'success'   => true,
-                'message'   => 'Anda Berhasil Mengisi Absen Pagi'
-            ]);
         }
     }
 }

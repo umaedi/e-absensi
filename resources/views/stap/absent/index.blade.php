@@ -3,7 +3,7 @@
     <div class="appHeader bg-primary text-light">
     <div class="right">
         <div class="headerButton" data-toggle="dropdown" id="dropdownMenuLink" aria-haspopup="true"><img
-                src="https://selfie.timkoding.com/sw-content/avatar.jpg" alt="image" class="imaged w32">
+                src="{{ asset('storage/stap/img/profile' . auth()->guard('stap')->user()->image ) }}" alt="image" class="imaged w32">
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"><a class="dropdown-item"
                     onclick="location.href='./profile';" href="./profile"><ion-icon size="small"
                         name="person-outline"></ion-icon>Profil</a><a class="dropdown-item"
@@ -15,12 +15,16 @@
 <div id="appCapsule">
     <div class="wallet-card">
         <div class="balance">
-            @if (date('H') < '10')
-            <div class="left"><span class="title"> Selamat Pagi</span>
-            @elseif('H' > '15')
-            <div class="left"><span class="title"> Selamat Sore</span>
+            @if (date('H') >= '4' && date('H') < '10')
+                <div class="left"><span class="title"> Selamat Pagi</span>
+            @elseif(date('H') >= '10' && date('H') < '15')
+                <div class="left"><span class="title"> Selamat Siang</span>
+            @elseif(date('H') >= '15' && date('H') < '18')
+                <div class="left"><span class="title"> Selamat Sore</span>
+            @else
+               <div class="left"><span class="title"> Selamat Malam</span>
             @endif
-            <h1 class="total">{{ auth()->guard('stap')->user()->name }}</h1>
+                <h1 class="total">{{ auth()->guard('stap')->user()->name }}</h1>
             </div>
             <div class="right">
                 <span class="title">07 Mar 2023 </span><h4><span class="clock">10.59.22</span></h4>
@@ -130,7 +134,7 @@ function captureimage() {
         `
             <img class="x-img-fluid" id="imageprev" style="border-radius: 15px" src="${data_uri}"/>;
             <div class="mt-3">
-                <button onclick="absenStore()" class="btn btn-primary">Isi Absen</button>
+                <button id="buttonAbsen" onclick="absenStore()" class="btn btn-primary">Isi Absen</button>
                 <button id="x-resetCamera" class="btn btn-warning">Coba Lagi</button>
             </div>
         `
@@ -152,6 +156,7 @@ function resetCamera()
 <script type="text/javascript">
      //isi absen
     async function absenStore() {
+
             var param = {
                 method: 'POST',
                 url: '{{ route('stap.absen.store') }}',

@@ -26,7 +26,8 @@ class HistoryController extends Controller
 
         $data['tanggal'] = Carbon::now()->format('d M Y');
         $data['hadir'] = Absent::where('stap_id', $stap_id)->count();
-        $data['terlambat'] = Absent::where('stap_id', $stap_id)->where('jam_masuk', 'like', '%' . '10' . '%')->count();
+        $data['terlambat'] = Absent::where('stap_id', $stap_id)->where('status', '2')->count();
+        $data['title'] = 'Data History Absensi';
 
         return view('stap.history.index', compact('data'));
     }

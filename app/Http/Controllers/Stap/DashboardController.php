@@ -33,7 +33,7 @@ class DashboardController extends Controller
         $data['absen'] = Absent::where('stap_id', $stap_id)->where('tanggal', date('d-m-Y'))->first();
         $data['tanggal'] = Carbon::now()->format('d M Y');
         $data['hadir'] = Absent::where('stap_id', $stap_id)->count();
-        $data['terlambat'] = Absent::where('stap_id', $stap_id)->where('jam_masuk', 'like', '%' . '10' . '%')->count();
+        $data['terlambat'] = Absent::where('stap_id', $stap_id)->where('status', '2')->count();
 
         $data['title'] = 'Dashboard Stap';
         return view('stap.dashboard.index', compact('data'));

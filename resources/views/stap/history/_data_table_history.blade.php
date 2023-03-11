@@ -14,9 +14,9 @@
             <tr>
                 <th scope="row">{{ $table->firstItem() + $key }}</th>
                 <td>{{ $tb->tanggal }}</td>
-                <td>{{ $tb->jam_masuk }}</td>
+                <td><a class="photo-pulang" href="{{ asset('storage/stap/img/'. $tb->photo_masuk) }}">{{ $tb->jam_masuk }}</a></td>
                 <td>{{ $tb->jam_pulang }}</td>
-                @if ($tb->jam_masuk > '10:00:00')
+                @if (strtotime($tb->jam_masuk) > strtotime('10:00:00'))
                 <td>Terlambat</td>
                 @else
                 <td>Tepat Waktu</td>

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('lat_long_pulang')->nullable();
             $table->string('photo_masuk');
             $table->string('photo_pulang')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

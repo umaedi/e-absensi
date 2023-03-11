@@ -89,6 +89,10 @@
         $('#printPage').click(function() {
             printPage();
         });
+        $('.photo-pulang').magnificPopup({
+    type: 'image'
+    // other options
+    });
     });
 
     function filterData(){
@@ -130,9 +134,7 @@
         var tanggalAwal = $('#tanggalAwal').val();
         var tanggalAkhir = $('#tanggalAkhir').val();
         window.location.href = "/stap/history/print?tanggal_awal="+tanggalAwal+"&tanggal_akhir="+tanggalAkhir;
-
     }
 
-// $('.image-link').magnificPopup({type:'image'});
 </script>
 @endpush

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Stap\AbsenController;
 use App\Http\Controllers\Stap\DashboardController;
 use App\Http\Controllers\Stap\HistoryController;
+use App\Http\Controllers\Stap\IzinController;
 use App\Http\Controllers\Stap\loginController;
 use App\Http\Controllers\Stap\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,10 @@ Route::prefix('stap')->group(function () {
             Route::get('/profile', 'index')->name('stap.profile');
             Route::post('/profile/update', 'updateProfile');
             Route::post('/profile/update/password', 'updatePassword');
+        });
+
+        Route::controller(IzinController::class)->group(function () {
+            Route::get('/izin', 'index')->name('stap.izin');
         });
     });
 });
