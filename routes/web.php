@@ -55,6 +55,7 @@ Route::prefix('stap')->group(function () {
         Route::controller(CutyController::class)->group(function () {
             Route::get('/cuty', 'index')->name('stap.izin');
             Route::post('/cuty/store', 'store');
+            Route::post('/cuty/update', 'update');
         });
     });
 });

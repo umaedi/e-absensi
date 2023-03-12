@@ -60,8 +60,8 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlSelect1" class="label my-2">Kategori Izin</label>
-                            <select class="form-control" id="exampleFormControlSelect1" name="status">
+                            <label for="status" class="label my-2">Kategori Izin</label>
+                            <select class="form-control" id="status" name="status">
                               <option value="1">Sakit</option>
                               <option value="2">Cuti</option>
                               <option value="3">Lainya</option>
@@ -71,7 +71,7 @@
                             <div class="input-wrapper">
                                 <label class="label">Mulai Izin</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control datepicker" id="cutystart" name="tanggal_awal" placeholder="09-03-2023" value="09-03-2023" required=""><div class="input-group-addon"><ion-icon name="calendar-outline" role="img" class="md hydrated" aria-label="calendar outline"></ion-icon>
+                                    <input type="text" class="form-control datepicker" id="cutystart" name="tanggal_awal" placeholder="Pilih" value="" required=""><div class="input-group-addon"><ion-icon name="calendar-outline" role="img" class="md hydrated" aria-label="calendar outline"></ion-icon>
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +80,7 @@
                             <div class="input-wrapper">
                                 <label class="label">Berakhir Izin</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control datepicker" id="cutyend" name="tanggal_akhir" placeholder="09-03-2023" value="" required="">
+                                    <input type="text" class="form-control datepicker" id="cutyend" name="tanggal_akhir" placeholder="Pilh" value="" required="">
                                     <div class="input-group-addon"><ion-icon name="calendar-outline" role="img" class="md hydrated" aria-label="calendar outline"></ion-icon>
                                     </div>
                                 </div>
@@ -90,7 +90,7 @@
                             <div class="input-wrapper">
                                 <label class="label">Tanggal Masuk Kerja</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control datepicker" name="tanggal_masuk" placeholder="09-03-2023" value="" required=""><div class="input-group-addon"><ion-icon name="calendar-outline" role="img" class="md hydrated" aria-label="calendar outline"></ion-icon>
+                                    <input type="text" class="form-control datepicker" name="tanggal_masuk" placeholder="Pilih" value="" required=""><div class="input-group-addon"><ion-icon name="calendar-outline" role="img" class="md hydrated" aria-label="calendar outline"></ion-icon>
                                     </div>
                                 </div>
                             </div>
@@ -108,14 +108,14 @@
                             </div>
                         </div>
                         <div class="form-group basic">
-                            <button id="buttonIzin" type="submit" class="btn btn-primary btn-lg btn-block mt-2">Simpan</button>
+                            <button id="btn_simpan" type="submit" class="btn btn-primary btn-lg btn-block mt-2">Simpan</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade modalbox" id="modal-update" tabindex="-1" role="dialog">
+    <div class="modal fade modalbox" id="modal-show" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -124,18 +124,28 @@
                 </div>
                 <div class="modal-body">
                     <form id="form-update-cuty" autocomplete="off">
-                        <input type="hidden" id="city-id" name="cuty_id" value="" readonly="" required="">
+                        @csrf
                         <div class="form-group basic">
                             <div class="input-wrapper">
                                 <label class="label">Nama</label>
-                                <input type="text" class="form-control" name="name" value="Devkh" style="background:#eee" readonly="" required=""><i class="clear-input"><ion-icon name="close-circle" role="img" class="md hydrated" aria-label="close circle"></ion-icon></i>
+                                <input id="cuty-id" type="hidden" name="cuty_id">
+                                <input type="text" class="form-control" id="name" value="{{ auth()->guard('stap')->user()->name }}" required=""><i class="clear-input"><ion-icon name="close-circle" role="img" class="md hydrated" aria-label="close circle"></ion-icon></i>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="status_update" class="label my-2">Kategori Izin</label>
+                            <select class="form-control" id="status_update" name="status">
+                              <option value="">--Pilh Kategori--</option>
+                              <option value="1">Sakit</option>
+                              <option value="2">Cuti</option>
+                              <option value="3">Lainya</option>
+                            </select>
+                          </div>
                         <div class="form-group basic">
                             <div class="input-wrapper">
                                 <label class="label">Mulai Cuti</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control datepicker" id="cuty-start" name="cuty_start" placeholder="09-03-2023" value="" required=""><div class="input-group-addon"><ion-icon name="calendar-outline" role="img" class="md hydrated" aria-label="calendar outline"></ion-icon></div>
+                                    <input type="text" class="form-control" id="awal-cuty" name="tanggal_awal" value="" required=""><div class="input-group-addon"><ion-icon name="calendar-outline" role="img" class="md hydrated" aria-label="calendar outline"></ion-icon></div>
                                 </div>
                             </div>
                         </div>
@@ -143,7 +153,7 @@
                             <div class="input-wrapper">
                                 <label class="label">Berakhir Cuti</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control datepicker" id="cuty-end" name="cuty_end" placeholder="09-03-2023" value="" required=""><div class="input-group-addon"><ion-icon name="calendar-outline" role="img" class="md hydrated" aria-label="calendar outline"></ion-icon></div>
+                                    <input type="text" class="form-control" id="akhir-cuty" name="tanggal_akhir" value="" required=""><div class="input-group-addon"><ion-icon name="calendar-outline" role="img" class="md hydrated" aria-label="calendar outline"></ion-icon></div>
                                 </div>
                             </div>
                         </div>
@@ -151,7 +161,7 @@
                             <div class="input-wrapper">
                                 <label class="label">Tanggal Masuk Kerja</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control datepicker" id="date-work" name="date_work" placeholder="09-03-2023" value="" required="">
+                                    <input type="text" class="form-control" id="tanggal-masuk" name="tanggal_masuk" value="" required="">
                                     <div class="input-group-addon"><ion-icon name="calendar-outline" role="img" class="md hydrated" aria-label="calendar outline"></ion-icon>
                                     </div>
                                 </div>
@@ -160,17 +170,17 @@
                         <div class="form-group basic">
                             <div class="input-wrapper">
                                 <label class="label">Jumlah Cuti</label>
-                                <input type="number" class="form-control" name="cuty_total" id="total" value="" required=""><i class="clear-input"><ion-icon name="close-circle" role="img" class="md hydrated" aria-label="close circle"></ion-icon></i>
+                                <input type="number" class="form-control" name="jumlah_izin" id="jumlah-cuty" value="" required=""><i class="clear-input"><ion-icon name="close-circle" role="img" class="md hydrated" aria-label="close circle"></ion-icon></i>
                             </div>
                         </div>
                         <div class="form-group basic">
                             <div class="input-wrapper">
                                 <label class="label">Keterangan</label>
-                                <textarea rows="2" class="form-control cuty_description" id="cuty_description" name="cuty_description" required=""></textarea><i class="clear-input"><ion-icon name="close-circle" role="img" class="md hydrated" aria-label="close circle"></ion-icon></i>
+                                <textarea rows="2" class="form-control cuty_description" id="keterangan-cuty" name="keterangan" required=""></textarea><i class="clear-input"><ion-icon name="close-circle" role="img" class="md hydrated" aria-label="close circle"></ion-icon></i>
                             </div>
                         </div>
                         <div class="form-group basic">
-                            <button type="submit" class="btn btn-danger btn-block btn-lg mt-2">Simpan</button>
+                            <button id="btn_simpan" type="submit" class="btn btn-primary btn-block btn-lg mt-2">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -199,6 +209,7 @@
 
             $('#tambahIzin').submit(function (e) {
             e.preventDefault();
+            $('#btn_simpan').text('Proses...');
                 $.ajax({
                     url:"/stap/cuty/store",
                     type: "POST",
@@ -208,7 +219,7 @@
                     cache: false,
                     async: false,
                     beforeSend: function () { 
-                        $('#buttonIzin').text('Proses...');
+                        $('#btn_simpan').text('Proses...');
                     },
                     success: function (data) {
                         if (data) {
@@ -220,15 +231,56 @@
 
                 },
                 complete: function () {
-                    $('#buttonIzin').text('Simpan');
+                    $('#btn_simpan').text('Simpan');
                 },
                 });
             });
-            $(".datepicker").datepicker({
-                format: "dd-mm-yyyy",
-                "autoclose": true
+
+            $('#form-update-cuty').submit(function(e) {
+                e.preventDefault();
+
+                $('#btn_simpan').text('Proses...');
+                $.ajax({
+                url:"/stap/cuty/update",
+                type: "POST",
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                cache: false,
+                async: false,
+                beforeSend: function () { 
+                    $('#btn_simpan').text('Proses...');
+                },
+                success: function (data) {
+                    if (data) {
+                        swal({title: 'Berhasil!', text: 'Permohonan Cuti Berhasil Diperbaharui', icon: 'success', timer: 2000,});
+                        setTimeout(function(){ location.reload(); }, 2500);
+                    } else {
+                        swal({title: 'Oops!', text: data, icon: 'error', timer: 2000,});
+                }
+
+            },
+            complete: function () {
+                $('#btn_simpan').text('Simpan...');
+            },
             });
+        });          
+
+        $(".datepicker").datepicker({
+            format: "dd-mm-yyyy",
+            "autoclose": true
         });
+        });
+
+        function getCuty(data)
+        {
+            $('#cuty-id').val(data.id);
+            $('#awal-cuty').val(data.tanggal_awal);
+            $('#akhir-cuty').val(data.tanggal_akhir);
+            $('#tanggal-masuk').val(data.tanggal_masuk);
+            $('#jumlah-cuty').val(data.jumlah_izin);
+            $('#keterangan-cuty').val(data.keterangan);
+        }
 
         function filterTable() {
             var tanggal_awal = $('input[name=tanggal_awal]').val(); 

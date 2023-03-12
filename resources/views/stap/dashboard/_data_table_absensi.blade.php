@@ -31,11 +31,11 @@
                         </div>
                         <p class="empty-title">Tidak ada data yang tersedia</p>
                         <div class="empty-action">
-                            <a href="{{ url('galeri/create') }}" class="btn btn-primary">
+                            <button onclick="loadData()" class="btn btn-primary">
                                 <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                                 <!-- SVG icon code -->
-                                Kembali
-                            </a>
+                                Refresh
+                            </button>
                         </div>
                     </div>
                 </td>
