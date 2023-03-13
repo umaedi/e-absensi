@@ -59,11 +59,11 @@
   
 
   <div class="col-md-3">
-    <p>Sakit : <span class="badge badge-warning">0</span></p>
+    <p>Sakit : <span class="badge badge-warning">{{ $data['sakit'] }}</span></p>
   </div>
 
   <div class="col-md-3">
-    <p>Izin : <span class="badge badge-info">0</span></p>
+    <p>Izin : <span class="badge badge-info">{{ $data['cuty'] }}</span></p>
   </div>
 </div>
 </div>
@@ -84,6 +84,7 @@
 
         $('#btnClear').click(function() {
             $('input').val('');
+            filterData();
         });
 
         $('#printPage').click(function() {
@@ -92,7 +93,7 @@
         $('.photo-pulang').magnificPopup({
     type: 'image'
     // other options
-    });
+        });
     });
 
     function filterData(){

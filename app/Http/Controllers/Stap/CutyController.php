@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Stap;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cuty;
+use Carbon\Carbon;
 
 class CutyController extends Controller
 {
@@ -13,10 +14,18 @@ class CutyController extends Controller
         if (\request()->ajax()) {
             $cuty = Cuty::query();
 
+            if (\request()->tanggal_awal && \request()->tanggal_akhir) {
+                $tgl_awal = Carbon::parse(\request()->tanggal_awal)->toDateTimeString();
+                $tgl_akhir = Carbon::parse(\request()->tanggal_akhir)->toDateTimeString();
+                $cuty->whereBetween('created_at', [$tgl_awal, $tgl_akhir])->get();
+            }
+
             $data['table']  = $cuty->where('stap_id', $stap_id)->paginate(6);
             return view('stap.cuty._data_table_cuty', $data);
         }
-        return view('stap.cuty.index');
+
+        $data['title']  = 'Data Permohonan Cuty';
+        return view('stap.cuty.index', compact('data'));
     }
 
     public function store()

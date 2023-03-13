@@ -23,7 +23,7 @@ class AbsenController extends Controller
 
             $absent = Absent::where('stap_id', $stap->id)->latest()->first();
 
-            if (isset($absent->tanggal) == date('d-m-Y')) {
+            if ($absent && $absent->tanggal == date('d-m-Y')) {
 
                 if (strtotime(date('H:i:s')) < strtotime('15:30:00')) {
                     return response()->json([

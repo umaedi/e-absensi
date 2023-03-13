@@ -57,5 +57,7 @@ Route::prefix('stap')->group(function () {
             Route::post('/cuty/store', 'store');
             Route::post('/cuty/update', 'update');
         });
+
+        Route::get('/logout', \App\Http\Controllers\Stap\LogoutController::class)->name('stap.logout');
     });
 });

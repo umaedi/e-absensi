@@ -14,8 +14,8 @@
             <tr>
                 <th scope="row">{{ $table->firstItem() + $key }}</th>
                 <td>{{ $tb->tanggal }}</td>
-                <td><a class="photo-pulang" href="{{ asset('storage/stap/img/'. $tb->photo_masuk) }}">{{ $tb->jam_masuk }}</a></td>
-                <td>{{ $tb->jam_pulang }}</td>
+                <td><a class="photo-masuk" href="{{ asset('storage/stap/img/'. $tb->photo_masuk) }}">{{ $tb->jam_masuk }}</a></td>
+                <td><a class="photo-pulang" href="{{ asset('storage/stap/img/'. $tb->photo_pulang) }}">{{ $tb->jam_pulang }}</a></td>
                 @if (strtotime($tb->jam_masuk) > strtotime('10:00:00'))
                 <td>Terlambat</td>
                 @else
@@ -41,11 +41,11 @@
                         </div>
                         <p class="empty-title">Tidak ada data yang tersedia</p>
                         <div class="empty-action">
-                            <a href="{{ url('galeri/create') }}" class="btn btn-primary">
+                            <button onclick="loadData()" class="btn btn-primary">
                                 <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                                 <!-- SVG icon code -->
-                                Kembali
-                            </a>
+                                Refresh
+                            </button>
                         </div>
                     </div>
                 </td>

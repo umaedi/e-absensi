@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Stap;
 
 use App\Http\Controllers\Controller;
 use App\Models\Absent;
+use App\Models\Cuty;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -34,6 +35,8 @@ class DashboardController extends Controller
         $data['tanggal'] = Carbon::now()->format('d M Y');
         $data['hadir'] = Absent::where('stap_id', $stap_id)->count();
         $data['terlambat'] = Absent::where('stap_id', $stap_id)->where('status', '2')->count();
+        $data['sakit'] = Cuty::where('stap_id', $stap_id)->where('status', '1')->count();
+        $data['cuty'] = Cuty::where('stap_id', $stap_id)->where('status', '2')->count();
 
         $data['title'] = 'Dashboard Stap';
         return view('stap.dashboard.index', compact('data'));

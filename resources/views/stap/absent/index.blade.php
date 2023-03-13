@@ -1,17 +1,5 @@
 @extends('layouts.stap.app')
 @section('content')
-    <div class="appHeader bg-primary text-light">
-    <div class="right">
-        <div class="headerButton" data-toggle="dropdown" id="dropdownMenuLink" aria-haspopup="true"><img
-                src="{{ asset('storage/stap/img/profile' . auth()->guard('stap')->user()->image ) }}" alt="image" class="imaged w32">
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"><a class="dropdown-item"
-                    onclick="location.href='./profile';" href="./profile"><ion-icon size="small"
-                        name="person-outline"></ion-icon>Profil</a><a class="dropdown-item"
-                    onclick="location.href='./logout';" href="./logout"><ion-icon size="small"
-                        name="log-out-outline"></ion-icon>Keluar</a></div>
-        </div>
-    </div>
-</div>
 <div id="appCapsule">
     <div class="wallet-card">
         <div class="balance">
@@ -96,7 +84,7 @@ function openCamera() {
         Webcam.set({
                 width: 490,height: 450,
                 image_format: 'jpeg',
-                jpeg_quality:80,
+                jpeg_quality:90,
             });
 
         var cameras = new Array();
@@ -115,7 +103,7 @@ function openCamera() {
             width: 490,
             height: 450,
             image_format: 'jpeg',
-            jpeg_quality:80,
+            jpeg_quality:90,
             sourceId: cameras[0]
         });
 
@@ -132,7 +120,7 @@ function captureimage() {
         document.getElementById('x-src').value = data_uri;
         document.getElementById('results').innerHTML = 
         `
-            <img class="x-img-fluid" id="imageprev" style="border-radius: 15px" src="${data_uri}"/>;
+            <img class="x-img-fluid" id="imageprev" style="border-radius: 15px" src="${data_uri}"/>
             <div class="mt-3">
                 <button id="buttonAbsen" onclick="absenStore()" class="btn btn-primary">Isi Absen</button>
                 <button id="x-resetCamera" class="btn btn-warning">Coba Lagi</button>

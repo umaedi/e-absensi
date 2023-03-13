@@ -9,7 +9,7 @@
                         <div class="form-group basic">
                             <div class="input-wrapper">
                                 <div class="input-group">
-                                    <input type="text" class="form-control datepicker start_date" name="start_date" placeholder="Tanggal Awal" required="">
+                                    <input id="tanggalAwal" type="text" class="form-control datepicker start_date" name="tanggal_awal" placeholder="Tanggal Awal">
                                     <div class="input-group-addon"><ion-icon name="calendar-outline" role="img" class="md hydrated" aria-label="calendar outline"></ion-icon>
                                     </div>
                                 </div>
@@ -20,7 +20,7 @@
                         <div class="form-group basic">
                             <div class="input-wrapper">
                                 <div class="input-group">
-                                    <input type="text" name="end_date" class="form-control datepicker end_date" placeholder="Tanggal Akhir">
+                                    <input id="tanggalAkhir" type="text" name="tanggal_akhir" placeholder="Tanggal Akhir" class="form-control datepicker end_date">
                                     <div class="input-group-addon"><ion-icon name="calendar-outline" role="img" class="md hydrated" aria-label="calendar outline"></ion-icon>
                                     </div>
                                 </div>
@@ -28,10 +28,10 @@
                         </div>
                     </div>
                     <div class="col-sm-4 col-md-4 justify-content-between">
-                        <button type="button" class="btn btn-danger mt-1 btn-sortir-cuty"><ion-icon name="checkmark-outline" role="img" class="md hydrated" aria-label="checkmark outline"></ion-icon>Tampilkan</button>
-                        <button type="button" class="btn btn-success mt-1 btn-clear-cuty"><ion-icon name="repeat-outline" role="img" class="md hydrated" aria-label="repeat outline"></ion-icon> Clear</button>
-                        <button type="button" class="btn btn-warning mt-1" data-toggle="modal" data-target="#modal-add"><ion-icon name="add-circle-outline" role="img" class="md hydrated" aria-label="add circle outline"></ion-icon> Tambah Cuti</button>
-                    </div>
+                        <button id="tampilkan" type="button" class="btn btn-danger mt-1 btn-sortir"><ion-icon name="checkmark-outline" role="img" class="md hydrated" aria-label="checkmark outline"></ion-icon>Tampilkan</button>
+                        <button id="printPage" class="btn btn-warning mt-1"><ion-icon name="print-outline" role="img" class="md hydrated" aria-label="print outline"></ion-icon> Cetak</button>
+                        <button id="btnClear" type="button" class="btn btn-success mt-1 btn-clear"><ion-icon name="repeat-outline" role="img" class="md hydrated" aria-label="repeat outline"></ion-icon> Clear</button>
+                    </div>  
                 </div>
             </div>
         </div>
@@ -193,11 +193,15 @@
 <script type="text/javascript" src="{{ asset('assets/stap') }}/js/plugins/datepicker/bootstrap-datepicker.js"></script>
     <script type="text/javascript">
         var page = 1;
-        var tanggal_awal = '';
-        var tanggal_akhir = '';
+        var tanggalAwal = '';
+        var tanggalAkhir = '';
 
         $(document).ready(function() {
             loadTable();
+
+            $('#tampilkan').click(function() {
+                filterTable();
+            });
 
             $('#tanggal_awal').change(function() {
                 filterTable();
@@ -283,8 +287,8 @@
         }
 
         function filterTable() {
-            var tanggal_awal = $('input[name=tanggal_awal]').val(); 
-            var tanggal_akhir = $('input[name=tanggal_akhir]').val(); 
+            tanggalAwal = $('#tanggalAwal').val();
+            tanggalAkhir =  $('#tanggalAkhir').val();
             loadTable();
         }
 
@@ -295,8 +299,8 @@
                     data: {
                         load: 'table',
                         page: page,
-                        tanggal_awal: tanggal_awal,
-                        tanggal_akhir: tanggal_akhir,
+                        tanggal_awal: tanggalAwal,
+                        tanggal_akhir: tanggalAkhir,
                     }
                 }
 
