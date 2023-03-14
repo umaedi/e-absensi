@@ -11,8 +11,9 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        $stap = auth()->guard('stap')->user();
-        return view('stap.profile.index', compact('stap'));
+        $data['stap'] = auth()->guard('stap')->user();
+        $data['title']  = 'Profile';
+        return view('stap.profile.index', compact('data'));
     }
 
     public function updateProfile()

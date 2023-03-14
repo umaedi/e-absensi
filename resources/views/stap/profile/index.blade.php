@@ -5,7 +5,7 @@
     <div class="section mt-3 text-center">
         <div class="avatar-section">
             <input type="file" onchange="previewImg()" id="image"  class="upload" name="image" id="avatar">
-            <img  id="imgPrev" src="{{ asset('storage/stap/img/profile/' . $stap->image ) }}" alt="image" class="imaged w100 rounded"><span class="button"><ion-icon name="camera-outline" role="img" class="md hydrated" aria-label="camera outline"></ion-icon></span>
+            <img  id="imgPrev" src="{{ asset('storage/stap/img/profile/' . $data['stap']->image ) }}" alt="image" class="imaged w100 rounded"><span class="button"><ion-icon name="camera-outline" role="img" class="md hydrated" aria-label="camera outline"></ion-icon></span>
         </div>
     </div>
     <div class="section mt-2 mb-2">
@@ -17,25 +17,25 @@
                     <div class="form-group boxed">
                         <div class="input-wrapper">
                             <label class="label" for="text4">NIP</label>
-                            <input type="text" class="form-control" required value="{{ $stap->nip }}" readonly>
+                            <input type="text" class="form-control" required value="{{ $data['stap']->nip }}" readonly>
                         </div>
                     </div>
                     <div class="form-group boxed">
                         <div class="input-wrapper">
                             <label class="label" for="email4">Nama</label>
-                            <input type="text" class="form-control" id="name" name="name" value="{{ $stap->name }}" required="">
+                            <input type="text" class="form-control" id="name" name="name" value="{{ $data['stap']->name }}" required="">
                         </div>
                     </div>
                     <div class="form-group boxed">
                         <div class="input-wrapper">
                             <label class="label" for="select4">Jabatan</label>
-                            <input type="text" class="form-control" value="{{ $stap->jabatan->nama_jabatan }}" readonly>
+                            <input type="text" class="form-control" value="{{ $data['stap']->jabatan->nama_jabatan }}" readonly>
                         </div>
                     </div>
                     <div class="form-group boxed">
                         <div class="input-wrapper">
                             <label class="label" for="password4">Dinas</label>
-                            <input type="text" class="form-control" value="{{ $stap->dinas->nama_dinas }}" readonly>
+                            <input type="text" class="form-control" value="{{ $data['stap']->dinas->nama_dinas }}" readonly>
                         </div>
                     </div>
                     <hr>
@@ -53,7 +53,7 @@
                     <div class="form-group boxed">
                         <div class="input-wrapper">
                             <label class="label" for="text4">Email</label>
-                            <input type="email" class="form-control" name="email" value="{{ $stap->email }}" required>
+                            <input type="email" class="form-control" name="email" value="{{ $data['stap']->email }}" required>
                         </div>
                     </div>
                     <div class="form-group boxed">

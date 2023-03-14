@@ -23,6 +23,9 @@
     <link rel="stylesheet" href="{{ asset('assets/stap') }}/js/plugins/magnific-popup/magnific-popup.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <link rel="stylesheet" href="{{ asset('assets/stap') }}/css/fakeLoader.min.css">
+    <!-- PWA  -->
+    <link rel="apple-touch-icon" href="{{ asset('assets/icon/lc_icon_absent.png') }}">
+    <link rel="manifest" href="{{ asset('/manifest.json') }}">
     @vite([])
 </head>
 
@@ -53,7 +56,17 @@ $(document).ready(function loading() {
         timeToHide:500,
         spinner:"spinner7"
     });
+    sw();
 });
+
+function sw() {
+    if (!navigator.serviceWorker.controller) {
+    navigator.serviceWorker.register("/sw.js").then(function (reg) {
+        console.log("Service worker has been registered for scope: " + reg.scope);
+    });
+    }
+}
+
 
 async function transAjax(data) {
     html = null;

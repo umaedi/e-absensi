@@ -11,6 +11,10 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('assets') }}/stap/css/style.css">
+  <!-- PWA  -->
+  <meta name="theme-color" content="#6777ef">
+  <link rel="apple-touch-icon" href="{{ asset('assets/icon/lc_icon_absent.png') }}">
+  <link rel="manifest" href="{{ asset('/manifest.json') }}">
 
 </head>
 
@@ -22,21 +26,13 @@
 
 <script src="{{ asset('/sw.js') }}"></script>
 <script>
+  $(document).ready(function() {
     if (!navigator.serviceWorker.controller) {
         navigator.serviceWorker.register("/sw.js").then(function (reg) {
             console.log("Service worker has been registered for scope: " + reg.scope);
         });
     }
+  });
 </script>
-
-<script>
-
-  function logOut()
-  {
-    localStorage.removeItem("api_token");
-    window.location.href = "{{ url('/admin/logout') }}"
-  }
-</script>
-
 @stack('js')
 </html>
