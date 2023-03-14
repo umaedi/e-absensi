@@ -35,8 +35,8 @@ class DatabaseSeeder extends Seeder
         }
 
         $jabatan = [
+            ['nama_jabatan' => 'Stap'],
             ['nama_jabatan' => 'Kabid'],
-            ['nama_jabatan' => 'Kasi'],
         ];
 
         foreach ($jabatan as $value) {

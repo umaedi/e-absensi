@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('no_tlp')->nullable();
             $table->string('password');
-            $table->string('image')->nullable();
+            $table->string('image')->default('avatar.jpg');
             $table->string('remember_token')->nullable();
             $table->timestamps();
         });

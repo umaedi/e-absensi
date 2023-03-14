@@ -16,7 +16,7 @@
                     <h1 class="total">{{ auth()->guard('stap')->user()->name }}</h1>
                 </div>
                 <div class="right">
-                    <span class="title">{{ $data['tanggal'] }} </span><h4><span class="clock">10.59.22</span></h4>
+                    <span class="title">{{ $data['tanggal'] }} </span><h4><span class="clock">Loading...</span></h4>
                 </div>
             </div>
             <div class="wallet-footer">

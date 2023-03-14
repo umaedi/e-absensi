@@ -33,11 +33,11 @@
                         </div>
                         <p class="empty-title">Tidak ada data yang tersedia</p>
                         <div class="empty-action">
-                            <a href="{{ url('galeri/create') }}" class="btn btn-primary">
+                            <button onclick=" loadTable()" class="btn btn-primary">
                                 <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                                 <!-- SVG icon code -->
-                                Kembali
-                            </a>
+                                Reresh
+                            </button>
                         </div>
                     </div>
                 </td>

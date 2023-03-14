@@ -60,4 +60,8 @@ Route::prefix('stap')->group(function () {
 
         Route::get('/logout', \App\Http\Controllers\Stap\LogoutController::class)->name('stap.logout');
     });
+
+    Route::get('/ayokabsent', function () {
+        return view('stap.qrcode.index');
+    });
 });

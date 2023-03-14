@@ -3,7 +3,7 @@
 </a><a href="absent" class="item">
     <div class="col"><ion-icon name="camera-outline"></ion-icon><strong>Absen</strong></div>
 </a><a href="./cuty" class="item">
-    <div class="col"><ion-icon name="calendar-outline"></ion-icon><strong>Cuti</strong></div>
+    <div class="col"><ion-icon name="calendar-outline"></ion-icon><strong>Cuty</strong></div>
 </a><a href="./history" class="item">
     <div class="col"><ion-icon name="document-text-outline"></ion-icon><strong>History</strong></div>
 </a><a href="{{ route('stap.profile') }}" class="item">

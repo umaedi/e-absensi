@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Stap;
 
+use Carbon\Carbon;
 use App\Models\Absent;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Storage;
@@ -13,7 +13,10 @@ class AbsenController extends Controller
 {
     public function index()
     {
-        return view('stap.absent.index');
+        $data['tanggal'] = Carbon::now()->format('d M Y');
+        $data['title']  = 'Absen Stap';
+
+        return view('stap.absent.index', compact('data'));
     }
 
     public function store(Request $request)
@@ -22,6 +25,13 @@ class AbsenController extends Controller
             $stap = auth()->guard('stap')->user();
 
             $absent = Absent::where('stap_id', $stap->id)->latest()->first();
+
+            if (isset($absent->jam_pulang)) {
+                return response()->json([
+                    'success'   => false,
+                    'message'   => 'Hari Ini Anda Sudah Mengisi Absen 2X!'
+                ], 403);
+            }
 
             if ($absent && $absent->tanggal == date('d-m-Y')) {
 
