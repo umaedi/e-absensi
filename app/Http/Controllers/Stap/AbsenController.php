@@ -26,19 +26,19 @@ class AbsenController extends Controller
 
             $absent = Absent::where('stap_id', $stap->id)->latest()->first();
 
-            if (isset($absent->jam_pulang)) {
-                return response()->json([
-                    'success'   => false,
-                    'message'   => 'Hari Ini Anda Sudah Mengisi Absen 2X!'
-                ], 403);
-            }
-
             if ($absent && $absent->tanggal == date('d-m-Y')) {
 
                 if (strtotime(date('H:i:s')) < strtotime('15:30:00')) {
                     return response()->json([
                         'success'   => false,
                         'message'   => 'Mohon Maaf Absen Sore Belum Dibuka!'
+                    ], 403);
+                }
+
+                if (isset($absent->jam_pulang)) {
+                    return response()->json([
+                        'success'   => false,
+                        'message'   => 'Hari Ini Anda Sudah Mengisi Absen 2X!'
                     ], 403);
                 }
 

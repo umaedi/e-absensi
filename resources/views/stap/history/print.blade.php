@@ -10,14 +10,20 @@
 @endsection
 @push('js')
     <script type="text/javascript">
+    var tgl_awal = {{ request('tanggal_awal') }};
+    var tgl_akhir = {{ request('tanggal_akhir') }};
+
     $(document).ready(function() {
         loadData();
+        window.print();
 
     });
+
+    var url = '{{ url()->full() }}'.replace('amp;' , '');
     async function loadData() {
         var param = {
             method: 'GET',
-            url: '{{ url()->full() }}',
+            url: url,
         }
         
         await transAjax(param).then(function(result) {
@@ -25,7 +31,6 @@
         }).catch((err) => {
             console.log('Internal Server Error!');
         });
-        window.print();
     }
     </script>
 @endpush

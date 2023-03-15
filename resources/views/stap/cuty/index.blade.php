@@ -30,7 +30,9 @@
                     <div class="col-sm-4 col-md-4 justify-content-between">
                         <button id="tampilkan" type="button" class="btn btn-danger mt-1 btn-sortir"><ion-icon name="checkmark-outline" role="img" class="md hydrated" aria-label="checkmark outline"></ion-icon>Tampilkan</button>
                         <button id="printPage" class="btn btn-warning mt-1"><ion-icon name="print-outline" role="img" class="md hydrated" aria-label="print outline"></ion-icon> Cetak</button>
-                        <button id="btnClear" type="button" class="btn btn-success mt-1 btn-clear"><ion-icon name="repeat-outline" role="img" class="md hydrated" aria-label="repeat outline"></ion-icon> Clear</button>
+                        <button type="button" data-toggle="modal" data-target="#modal-add" class="btn btn-success mt-1 btn-clear"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                          </svg> Tambah Cuty</button>
                     </div>  
                 </div>
             </div>
@@ -63,7 +65,7 @@
                             <label for="status" class="label my-2">Kategori Izin</label>
                             <select class="form-control" id="status" name="status">
                               <option value="1">Sakit</option>
-                              <option value="2">Cuti</option>
+                              <option value="2">Cuty</option>
                               <option value="3">Lainya</option>
                             </select>
                           </div>
@@ -71,7 +73,7 @@
                             <div class="input-wrapper">
                                 <label class="label">Mulai Izin</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control datepicker" id="cutystart" name="tanggal_awal" placeholder="Pilih" value="" required=""><div class="input-group-addon"><ion-icon name="calendar-outline" role="img" class="md hydrated" aria-label="calendar outline"></ion-icon>
+                                    <input type="text" class="form-control datepicker" id="cutystart" name="tanggal_awal" placeholder="Pilih" value="" required="" readonly><div class="input-group-addon"><ion-icon name="calendar-outline" role="img" class="md hydrated" aria-label="calendar outline"></ion-icon>
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +82,7 @@
                             <div class="input-wrapper">
                                 <label class="label">Berakhir Izin</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control datepicker" id="cutyend" name="tanggal_akhir" placeholder="Pilh" value="" required="">
+                                    <input type="text" class="form-control datepicker" id="cutyend" name="tanggal_akhir" placeholder="Pilh" value="" required="" readonly>
                                     <div class="input-group-addon"><ion-icon name="calendar-outline" role="img" class="md hydrated" aria-label="calendar outline"></ion-icon>
                                     </div>
                                 </div>
@@ -90,7 +92,7 @@
                             <div class="input-wrapper">
                                 <label class="label">Tanggal Masuk Kerja</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control datepicker" name="tanggal_masuk" placeholder="Pilih" value="" required=""><div class="input-group-addon"><ion-icon name="calendar-outline" role="img" class="md hydrated" aria-label="calendar outline"></ion-icon>
+                                    <input type="text" class="form-control datepicker" name="tanggal_masuk" placeholder="Pilih" value="" required="" readonly><div class="input-group-addon"><ion-icon name="calendar-outline" role="img" class="md hydrated" aria-label="calendar outline"></ion-icon>
                                     </div>
                                 </div>
                             </div>

@@ -90,9 +90,13 @@
         $('#printPage').click(function() {
             printPage();
         });
-        $('.photo-pulang').magnificPopup({
-    type: 'image'
-    // other options
+
+        // Example with single object
+        $('#photo-pulang').magnificPopup({
+            items: {
+            src: "assets/icon/lc_icon_absent.png"
+            },
+            type: 'image' // this is default type
         });
     });
 

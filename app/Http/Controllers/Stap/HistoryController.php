@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Stap;
 use Carbon\Carbon;
 use App\Models\Cuty;
 use App\Models\Absent;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class HistoryController extends Controller
@@ -36,13 +38,12 @@ class HistoryController extends Controller
         return view('stap.history.index', compact('data'));
     }
 
-    public function print()
+    public function print(Request $request)
     {
         $stap = auth()->guard('stap')->user();
         if (\request()->ajax()) {
             $absent = Absent::query();
-
-            if (\request()->tanggal_awal && \request()->tanggal_akhir) {
+            if ($request->tanggal_awal && $request->tanggal_akhir) {
                 $tgl_awal = Carbon::parse(\request()->tanggal_awal)->toDateTimeString();
                 $tgl_akhir = Carbon::parse(\request()->tanggal_akhir)->toDateTimeString();
                 $absent->whereBetween('created_at', [$tgl_awal, $tgl_akhir]);

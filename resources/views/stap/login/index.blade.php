@@ -44,27 +44,5 @@
   </div>
 </section>
 @endsection
-@push('js')
-<script>
-
-  //show hide password
-  const toglePassword = document.querySelector('#show_hide_password');
-    const password = document.querySelector('#password');
-    
-    toglePassword.addEventListener('click', function(e) {
-        const icon = document.querySelector('#show_hide_password i');
-        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-        password.setAttribute('type', type);
-
-        if(type === 'text') {
-          icon.classList.remove('fa-eye-slash');
-          icon.classList.add('fa-eye');
-        }else {
-          icon.classList.remove('fa-eye');
-          icon.classList.add('fa-eye-slash');
-        }
-    });
-</script>
-@endpush
    
 

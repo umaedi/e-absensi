@@ -69,7 +69,7 @@ body {
 
 .x-img-fluid {
   max-width: 100%;
-  height: 450px;
+  height: 380px;
 }
 
 [tabindex="-1"]:focus {
