@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Stap;
 use Carbon\Carbon;
 use App\Models\Cuty;
 use App\Models\Absent;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -24,15 +23,17 @@ class HistoryController extends Controller
             }
 
             $data['table'] = $absent->where('stap_id', $stap_id)->paginate(12);
-
             return view('stap.history._data_table_history', $data);
         }
 
+        $absent = Absent::query();
+        $cuty = Cuty::query();
+
         $data['tanggal'] = Carbon::now()->format('d M Y');
-        $data['hadir'] = Absent::where('stap_id', $stap_id)->count();
-        $data['terlambat'] = Absent::where('stap_id', $stap_id)->where('status', '2')->count();
-        $data['sakit'] = Cuty::where('stap_id', $stap_id)->where('status', '1')->count();
-        $data['cuty'] = Cuty::where('stap_id', $stap_id)->where('status', '2')->count();
+        $data['hadir'] = $absent->where('stap_id', $stap_id)->count();
+        $data['terlambat'] = $absent->where('stap_id', $stap_id)->where('status', '2')->count();
+        $data['sakit'] = $cuty->where('stap_id', $stap_id)->where('status', '1')->count();
+        $data['cuty'] = $cuty->where('stap_id', $stap_id)->where('status', '2')->count();
         $data['title'] = 'Data History Absensi';
 
         return view('stap.history.index', compact('data'));

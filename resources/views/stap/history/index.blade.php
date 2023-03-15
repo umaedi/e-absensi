@@ -56,7 +56,6 @@
   <div class="col-md-3">
     <p>Terlambat : <span class="label badge badge-danger">{{ $data['terlambat'] }}</span></p>
   </div>
-  
 
   <div class="col-md-3">
     <p>Sakit : <span class="badge badge-warning">{{ $data['sakit'] }}</span></p>
@@ -66,6 +65,7 @@
     <p>Izin : <span class="badge badge-info">{{ $data['cuty'] }}</span></p>
   </div>
 </div>
+
 </div>
 @endsection
 @push('js')
@@ -91,12 +91,11 @@
             printPage();
         });
 
-        // Example with single object
         $('#photo-pulang').magnificPopup({
             items: {
             src: "assets/icon/lc_icon_absent.png"
             },
-            type: 'image' // this is default type
+            type: 'image'
         });
     });
 

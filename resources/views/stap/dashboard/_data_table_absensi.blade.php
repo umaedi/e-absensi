@@ -12,7 +12,7 @@
         @forelse ($table as $tb)
             <tr>
                 <th scope="row">{{ $no++ }}</th>
-                <td>{{ $tb->tanggal }}</td>
+                <td>{{ date('d-m-Y', strtotime($tb->tanggal)) }}</td>
                 <td>{{ $tb->jam_masuk }}</td>
                 <td>{{ $tb->jam_pulang }}</td>
             </tr>

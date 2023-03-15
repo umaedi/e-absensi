@@ -26,7 +26,7 @@ class AbsenController extends Controller
 
             $absent = Absent::where('stap_id', $stap->id)->latest()->first();
 
-            if ($absent && $absent->tanggal == date('d-m-Y')) {
+            if ($absent && $absent->tanggal == date('Y-m-d')) {
 
                 if (strtotime(date('H:i:s')) < strtotime('15:30:00')) {
                     return response()->json([
@@ -60,8 +60,6 @@ class AbsenController extends Controller
                         'stap_id'   => $stap->id,
                         'dinas_id'  => $stap->dinas->id,
                         'tanggal'   => date('d-m-Y'),
-                        'bulan'     => date('m'),
-                        'tahun'     => date('Y'),
                         'jam_pulang' => date('H:i:s'),
                         'lat_long_pulang'   => $request->latLong,
                         'photo_pulang'     => $fileName,
@@ -102,9 +100,7 @@ class AbsenController extends Controller
                     Absent::create([
                         'stap_id'   => $stap->id,
                         'dinas_id'  => $stap->dinas->id,
-                        'tanggal'   => date('d-m-Y'),
-                        'bulan'     => date('m'),
-                        'tahun'     => date('Y'),
+                        'tanggal'   => date('Y-m-d'),
                         'jam_masuk' => date('H:i:s'),
                         'lat_long_masuk'   => $request->latLong,
                         'photo_masuk'     => $fileName,
@@ -115,7 +111,7 @@ class AbsenController extends Controller
 
                     return response()->json([
                         'success'   => false,
-                        'message'   => 'Internal Server Error!'
+                        'message'   => 'Internal Server Error!',
                     ], 500);
                 }
 

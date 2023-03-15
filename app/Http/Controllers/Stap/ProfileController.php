@@ -23,7 +23,10 @@ class ProfileController extends Controller
             if (\request()->file('image')) {
                 $image = request()->file('image');
                 $image->storeAs('public/stap/img/profile', $image->hashName());
-                Storage::delete('public/stap/img/profile/' . $stap->image);
+
+                if ($stap->image !== 'avatar.jpg') {
+                    Storage::delete('public/stap/img/profile/' . $stap->image);
+                }
             } else {
                 $image = "";
             }
