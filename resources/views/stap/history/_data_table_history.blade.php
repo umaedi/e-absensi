@@ -1,6 +1,3 @@
-{{-- <style>
-    #map { height: 350px; }
-</style> --}}
 <table class="table">
     <thead class="thead-dark">
         <tr>
@@ -17,7 +14,7 @@
             <tr>
                 <th scope="row">{{ $table->firstItem() + $key }}</th>
                 <td>{{ date('d-m-Y', strtotime($tb->tanggal)) }}</td>
-                <td><a href="#" data-toggle="modal" data-target="#modal-show" class="photo-masuk">{{ $tb->jam_masuk }}</a></td>
+                <td><a href="#" onclick="absenMasuk({{ $tb }})" data-toggle="modal" data-target="#modal-show" class="photo-masuk">{{ $tb->jam_masuk }}</a></td>
                 <td><a class="photo-pulang" href="{{ asset('storage/stap/img/'. $tb->photo_pulang) }}">{{ $tb->jam_pulang }}</a></td>
                 @if (strtotime($tb->jam_masuk) > strtotime('10:00:00'))
                 <td>Terlambat</td>
@@ -25,50 +22,6 @@
                 <td>Tepat Waktu</td>
                 @endif
             </tr>
-
-            <div class="modal fade modalbox" id="modal-show" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Detail Absen Pagi</h5>
-                            <a href="javascript:;" data-dismiss="modal">Close</a>
-                        </div>
-                        <div class="modal-body">
-                                <div class="form-group basic">
-                                    <div class="input-wrapper text-center">
-                                        <img class="img-fluid rounded" src="{{ asset('storage/stap/img/'. $tb->photo_masuk) }}" alt="">
-                                    </div>
-                                </div>
-                                <div class="form-group basic">
-                                    <div class="input-wrapper">
-                                        <label class="label">Nama</label>
-                                        <input id="cuty-id" type="hidden" name="cuty_id">
-                                        <input type="text" class="form-control" id="name" value="{{ auth()->guard('stap')->user()->name }}" required=""><i class="clear-input"><ion-icon name="close-circle" role="img" class="md hydrated" aria-label="close circle"></ion-icon></i>
-                                    </div>
-                                </div>
-                                <div class="form-group basic">
-                                    <div class="input-wrapper">
-                                        <label class="label">Tanggal</label>
-                                        <input type="text" class="form-control" value="{{ date('d-m-Y', strtotime($tb->tanggal)) }}" required=""><i class="clear-input"><ion-icon name="close-circle" role="img" class="md hydrated" aria-label="close circle"></ion-icon></i>
-                                    </div>
-                                </div>
-                                <div class="form-group basic">
-                                    <div class="input-wrapper">
-                                        <label class="label">Jam Masuk</label>
-                                        <input type="text" class="form-control" value="{{ $tb->jam_masuk }}" required=""><i class="clear-input"><ion-icon name="close-circle" role="img" class="md hydrated" aria-label="close circle"></ion-icon></i>
-                                    </div>
-                                </div>
-                                <div class="form-group basic">
-                                    <div class="input-wrapper">
-                                        <label class="label">Lokasi Absen</label>
-                                        <input type="text" class="form-control" value="{{ $tb->lat_long_masuk }}" required=""><i class="clear-input"><ion-icon name="close-circle" role="img" class="md hydrated" aria-label="close circle"></ion-icon></i>
-                                    </div>
-                                    <div id="map"></div>
-                                </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         @empty
             <tr>
                 <td colspan="8" class="text-center">

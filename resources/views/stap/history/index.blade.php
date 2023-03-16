@@ -67,8 +67,53 @@
 </div>
 
 </div>
+
+<div class="modal fade modalbox" id="modal-show" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail Absen Pagi</h5>
+                <a href="javascript:;" data-dismiss="modal">Close</a>
+            </div>
+            <div class="modal-body">
+                    <div class="form-group basic">
+                        <div class="input-wrapper text-center">
+                            <img id="photoMasuk" class="img-fluid rounded" src="" alt="">
+                        </div>
+                    </div>
+                    <div class="form-group basic">
+                        <div class="input-wrapper">
+                            <label class="label">Nama</label>
+                            <input type="text" class="form-control" id="name" value="{{ auth()->guard('stap')->user()->name }}" readonly><i class="clear-input"><ion-icon name="close-circle" role="img" class="md hydrated" aria-label="close circle"></ion-icon></i>
+                        </div>
+                    </div>
+                    <div class="form-group basic">
+                        <div class="input-wrapper">
+                            <label class="label">Tanggal</label>
+                            <input name="tanggal" type="text" class="form-control" value="" readonly><i class="clear-input"><ion-icon name="close-circle" role="img" class="md hydrated" aria-label="close circle"></ion-icon></i>
+                        </div>
+                    </div>
+                    <div class="form-group basic">
+                        <div class="input-wrapper">
+                            <label class="label">Jam Masuk</label>
+                            <input name="jam_masuk" type="text" class="form-control" value="" readonly><i class="clear-input"><ion-icon name="close-circle" role="img" class="md hydrated" aria-label="close circle"></ion-icon></i>
+                        </div>
+                    </div>
+                    <div class="form-group basic">
+                        <div class="input-wrapper">
+                            <label class="label">Lokasi Absen</label>
+                            <input name="latlong" type="text" class="form-control" value="" readonly><i class="clear-input"><ion-icon name="close-circle" role="img" class="md hydrated" aria-label="close circle"></ion-icon></i>
+                        </div>
+                        {{-- <div id="map"></div> --}}
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 @push('js')
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPd9X55ZmEgE6R-T2mBiQVRGK1hjVNou8&libraries=places"></script>
 <script type="text/javascript" src="{{ asset('assets/stap') }}/js/plugins/datepicker/bootstrap-datepicker.js"></script>
 <script type="text/javascript">
 
@@ -140,5 +185,39 @@
         window.location.href = "/stap/history/print?tanggal_awal="+tanggalAwal+"&tanggal_akhir="+tanggalAkhir;
     }
 
+    function absenMasuk(data)
+    {
+        $('#photoMasuk').attr('src', "{{ asset('storage/stap/img') }}/"+data.photo_masuk);
+        $('input[name=tanggal]').val(data.tanggal);
+        $('input[name=jam_masuk]').val(data.jam_masuk);
+        $('input[name=latlong]').val(data.lat_long_masuk);
+    }
 </script>
+
+{{-- <script>
+    let mapOptions, map, marker;
+        infoWindow = '';
+
+        element = document.getElementById('map');
+
+        mapOptions = {
+        zoom: 16,
+        center: {
+            lat: -4.5128044,
+            lng: 105.2373425,
+        },
+        disableDefaultUI: false,
+        scrollWheel: true, 
+        draggable: false, 
+        };
+
+        map = new google.maps.Map(element, mapOptions);
+
+        marker = new google.maps.Marker({
+        position: mapOptions.center,
+        map: map,
+        // icon: 'http://pngimages.net/sites/default/files/google-maps-png-image-70164.png',
+        draggable: true
+        });
+</script> --}}
 @endpush

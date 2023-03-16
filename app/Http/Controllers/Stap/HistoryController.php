@@ -22,7 +22,7 @@ class HistoryController extends Controller
                 $absent->whereBetween('created_at', [$tgl_awal, $tgl_akhir]);
             }
 
-            $data['table'] = $absent->where('stap_id', $stap_id)->paginate(12);
+            $data['table'] = $absent->where('stap_id', $stap_id)->latest()->paginate(12);
             return view('stap.history._data_table_history', $data);
         }
 
