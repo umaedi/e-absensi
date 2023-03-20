@@ -41,6 +41,7 @@
     <div class="section-title">Data Absensi</div>
     <div class="card">
         <div class="card">
+            @include('layouts.stap._loading')
             <div class="table-responsive" id="x-data-table">
                 
             </div>
@@ -72,13 +73,13 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Detail Absen Pagi</h5>
+                <h5 class="modal-title">...</h5>
                 <a href="javascript:;" data-dismiss="modal">Close</a>
             </div>
             <div class="modal-body">
                     <div class="form-group basic">
                         <div class="input-wrapper text-center">
-                            <img id="photoMasuk" class="img-fluid rounded" src="" alt="">
+                            <img id="photoAbsen" class="img-fluid rounded" src="" alt="">
                         </div>
                     </div>
                     <div class="form-group basic">
@@ -104,7 +105,7 @@
                             <label class="label">Lokasi Absen</label>
                             <input name="latlong" type="text" class="form-control" value="" readonly><i class="clear-input"><ion-icon name="close-circle" role="img" class="md hydrated" aria-label="close circle"></ion-icon></i>
                         </div>
-                        {{-- <div id="map"></div> --}}
+                        {{-- <div id="map" style="height: 390px"></div> --}}
                     </div>
             </div>
         </div>
@@ -135,13 +136,6 @@
         $('#printPage').click(function() {
             printPage();
         });
-
-        $('#photo-pulang').magnificPopup({
-            items: {
-            src: "assets/icon/lc_icon_absent.png"
-            },
-            type: 'image'
-        });
     });
 
     function filterData(){
@@ -161,12 +155,23 @@
                 tanggal_akhir: tanggalAkhir,
             }
         }
-
+        
+        loading(true);
         await transAjax(param).then(function(result) {
+            loading(false)
             $('#x-data-table').html(result)
         }).catch((err) => {
+            loading(false)
             console.log('Internal Server Error!');
         });
+    }
+
+    function loading(state) {
+        if(state) {
+            $('#loading').removeClass('d-none');
+        } else {
+            $('#loading').addClass('d-none');
+        }
     }
 
     function loadPaginate(to) {
@@ -185,9 +190,15 @@
         window.location.href = "/stap/history/print?tanggal_awal="+tanggalAwal+"&tanggal_akhir="+tanggalAkhir;
     }
 
-    function absenMasuk(data)
+    function showAbsen(data, waktu)
     {
-        $('#photoMasuk').attr('src', "{{ asset('storage/stap/img') }}/"+data.photo_masuk);
+        if(waktu === 1) {
+            $('.modal-title').html('Detail Absen Pagi');
+        }else {
+            $('.modal-title').html('Detail Absen Sore');
+        };
+
+        $('#photoAbsen').attr('src', "{{ asset('storage/stap/img') }}/"+data.photo_masuk);
         $('input[name=tanggal]').val(data.tanggal);
         $('input[name=jam_masuk]').val(data.jam_masuk);
         $('input[name=latlong]').val(data.lat_long_masuk);

@@ -40,7 +40,6 @@ class DashboardController extends Controller
 
         $data['title'] = 'Dashboard Stap';
 
-        $absent = Absent::find(2);
         return view('stap.dashboard.index', compact('data'));
     }
 }

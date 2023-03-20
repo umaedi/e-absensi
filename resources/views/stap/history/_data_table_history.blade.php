@@ -14,8 +14,8 @@
             <tr>
                 <th scope="row">{{ $table->firstItem() + $key }}</th>
                 <td>{{ date('d-m-Y', strtotime($tb->tanggal)) }}</td>
-                <td><a href="#" onclick="absenMasuk({{ $tb }})" data-toggle="modal" data-target="#modal-show" class="photo-masuk">{{ $tb->jam_masuk }}</a></td>
-                <td><a class="photo-pulang" href="{{ asset('storage/stap/img/'. $tb->photo_pulang) }}">{{ $tb->jam_pulang }}</a></td>
+                <td><a href="#" onclick="showAbsen({{ $tb }}, 1)" data-toggle="modal" data-target="#modal-show" data-waktu="masuk">{{ $tb->jam_masuk }}</a></td>
+                <td><a href="#" onclick="showAbsen({{ $tb }}, 2)" data-toggle="modal" data-target="#modal-show" data-waktu="pulang">{{ $tb->jam_pulang }}</a></td>
                 @if (strtotime($tb->jam_masuk) > strtotime('10:00:00'))
                 <td>Terlambat</td>
                 @else

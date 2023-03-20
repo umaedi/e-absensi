@@ -138,7 +138,6 @@ function resetCamera()
     window.location.reload('/stap/absent');
 }
 
-
 </script>
 
 <script type="text/javascript">

@@ -75,6 +75,7 @@
 $(document).ready(function() {
     $('#update-profile').submit(function (e) {
         e.preventDefault();
+        $('#btn-profile').html('Proses...');
             $.ajax({
                 url:"/stap/profile/update",
                 type: "POST",
@@ -84,7 +85,7 @@ $(document).ready(function() {
                 cache: false,
                 async: false,
                 beforeSend: function () { 
-                 $('#btn-profile').text('Proses...');
+                 $('#btn-profile').html('Proses...');
                 },
                 success: function (data) {
                     if (data) {
@@ -96,7 +97,7 @@ $(document).ready(function() {
 
             },
             complete: function () {
-                $('#btn-profile').text('Simpan');
+                $('#btn-profile').html('Simpan');
             },
         });
     });

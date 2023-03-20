@@ -59,7 +59,7 @@ class AbsenController extends Controller
                     $absent->where('stap_id', 1)->update([
                         'stap_id'   => $stap->id,
                         'dinas_id'  => $stap->dinas->id,
-                        'tanggal'   => date('d-m-Y'),
+                        'tanggal'   => date('Y-m-d'),
                         'jam_pulang' => date('H:i:s'),
                         'lat_long_pulang'   => $request->latLong,
                         'photo_pulang'     => $fileName,
@@ -98,13 +98,13 @@ class AbsenController extends Controller
 
                 try {
                     Absent::create([
-                        'stap_id'   => $stap->id,
-                        'dinas_id'  => $stap->dinas->id,
-                        'tanggal'   => date('Y-m-d'),
-                        'jam_masuk' => date('H:i:s'),
-                        'lat_long_masuk'   => $request->latLong,
-                        'photo_masuk'     => $fileName,
-                        'status' => $status,
+                        'stap_id'           => $stap->id,
+                        'dinas_id'          => $stap->dinas->id,
+                        'tanggal'           => date('Y-m-d'),
+                        'jam_masuk'         => date('H:i:s'),
+                        'lat_long_masuk'    => $request->latLong,
+                        'photo_masuk'       => $fileName,
+                        'status'            => $status,
                     ]);
                 } catch (QueryException $e) {
                     Storage::delete('public/stap/img' . $fileName);

@@ -137,8 +137,7 @@
                         <div class="form-group">
                             <label for="status_update" class="label my-2">Kategori Izin</label>
                             <select class="form-control" id="status_update" name="status">
-                              <option value="">--Pilh Kategori--</option>
-                              <option value="1">Sakit</option>
+                              <option id="ketIzin" value="1">Sakit</option>
                               <option value="2">Cuti</option>
                               <option value="3">Lainya</option>
                             </select>
@@ -280,7 +279,9 @@
 
         function getCuty(data)
         {
+            console.log(data);
             $('#cuty-id').val(data.id);
+            $('#ketIzin').html(data.keterangan);
             $('#awal-cuty').val(data.tanggal_awal);
             $('#akhir-cuty').val(data.tanggal_akhir);
             $('#tanggal-masuk').val(data.tanggal_masuk);
