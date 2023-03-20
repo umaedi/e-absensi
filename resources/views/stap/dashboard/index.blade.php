@@ -26,7 +26,7 @@
                     </a></div>
                 <div class="item"><a href="{{ route('stap.izin') }}">
                         <div class="icon-wrapper bg-primary"><ion-icon name="calendar-outline"></ion-icon></div>
-                        <strong>Cuty</strong>
+                        <strong>Izin</strong>
                     </a></div>
                 <div class="item"><a href="{{ route('stap.histories') }}">
                         <div class="icon-wrapper bg-success"><ion-icon name="document-text-outline"></ion-icon>

@@ -56,7 +56,7 @@ class AbsenController extends Controller
                 Storage::put($file, $image_base64);
 
                 try {
-                    $absent->where('stap_id', 1)->update([
+                    $absent->where('stap_id', $stap->id)->update([
                         'stap_id'   => $stap->id,
                         'dinas_id'  => $stap->dinas->id,
                         'tanggal'   => date('Y-m-d'),

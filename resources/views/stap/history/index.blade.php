@@ -194,14 +194,17 @@
     {
         if(waktu === 1) {
             $('.modal-title').html('Detail Absen Pagi');
+            var photo_absen = data.photo_masuk;
         }else {
             $('.modal-title').html('Detail Absen Sore');
+            var photo_absen = data.photo_pulang;
         };
 
-        $('#photoAbsen').attr('src', "{{ asset('storage/stap/img') }}/"+data.photo_masuk);
+        $('#photoAbsen').attr('src', "{{ asset('storage/stap/img') }}/"+ photo_absen);
         $('input[name=tanggal]').val(data.tanggal);
         $('input[name=jam_masuk]').val(data.jam_masuk);
         $('input[name=latlong]').val(data.lat_long_masuk);
+        
     }
 </script>
 
