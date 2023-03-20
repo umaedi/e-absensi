@@ -105,7 +105,7 @@
                             <label class="label">Lokasi Absen</label>
                             <input name="latlong" type="text" class="form-control" value="" readonly><i class="clear-input"><ion-icon name="close-circle" role="img" class="md hydrated" aria-label="close circle"></ion-icon></i>
                         </div>
-                        {{-- <div id="map" style="height: 390px"></div> --}}
+                        <div id="map" style="height: 390px"></div>
                     </div>
             </div>
         </div>
@@ -204,12 +204,11 @@
         $('input[name=tanggal]').val(data.tanggal);
         $('input[name=jam_masuk]').val(data.jam_masuk);
         $('input[name=latlong]').val(data.lat_long_masuk);
-        
-    }
-</script>
 
-{{-- <script>
-    let mapOptions, map, marker;
+        const lat = data.lat_long_masuk.substring(10, '');
+        const long = data.lat_long_masuk.substring(11);
+
+        let mapOptions, map, marker;
         infoWindow = '';
 
         element = document.getElementById('map');
@@ -217,8 +216,8 @@
         mapOptions = {
         zoom: 16,
         center: {
-            lat: -4.5128044,
-            lng: 105.2373425,
+            lat: parseFloat(lat),
+            lng: parseFloat(long),
         },
         disableDefaultUI: false,
         scrollWheel: true, 
@@ -233,5 +232,6 @@
         // icon: 'http://pngimages.net/sites/default/files/google-maps-png-image-70164.png',
         draggable: true
         });
-</script> --}}
+    }
+</script>
 @endpush
