@@ -39,7 +39,8 @@
                         </div>
                     </div>
                     <hr>
-                    <button id="btn-profile" type="submit" class="btn btn-primary mr-1 btn-lg btn-block btn-profile">Simpan</button>
+                    @include('layouts.stap._loading_submit')
+                    <button id="btn-profile" type="submit" class="btn-submit btn btn-primary mr-1 btn-lg btn-block btn-profile">Simpan</button>
                 </div>
             </div>
         </div>
@@ -63,7 +64,8 @@
                         </div>
                     </div>
                     <hr>
-                    <button id="btn-password" type="submit" class="btn btn-primary mr-1 btn-lg btn-block">Simpan</button>
+                    @include('layouts.stap._loading_submit')
+                    <button id="btn-password" type="submit" class="btn-submit btn btn-primary mr-1 btn-lg btn-block">Simpan</button>
                 </form>
             </div>
         </div>
@@ -75,7 +77,7 @@
 $(document).ready(function() {
     $('#update-profile').submit(function (e) {
         e.preventDefault();
-        $('#btn-profile').html('Proses...');
+        loading(true);
             $.ajax({
                 url:"/stap/profile/update",
                 type: "POST",
@@ -85,25 +87,28 @@ $(document).ready(function() {
                 cache: false,
                 async: false,
                 beforeSend: function () { 
-                 $('#btn-profile').html('Proses...');
+                    loading(true);
                 },
                 success: function (data) {
                     if (data) {
+                        loading(false);
                         swal({title: 'Berhasil!', text: 'Profil berhasil di perbaharui!', icon: 'success', timer: 2000,});
                         setTimeout(function(){ location.reload(); }, 2500);
                     } else {
+                        loading(false);
                         swal({title: 'Oops!', text: data, icon: 'error', timer: 2000,});
                 }
 
             },
             complete: function () {
-                $('#btn-profile').html('Simpan');
+                loading(false);
             },
         });
     });
 
     $('#update-password').submit(function (e) {
         e.preventDefault();
+        loading(true);
             $.ajax({
                 url:"/stap/profile/update/password",
                 type: "POST",
@@ -113,23 +118,34 @@ $(document).ready(function() {
                 cache: false,
                 async: false,
                 beforeSend: function () { 
-                 $('#btn-password').text('Proses...');
+                    loading(true);
                 },
                 success: function (data) {
                     if (data) {
+                        loading(false);
                         swal({title: 'Berhasil!', text: 'Password berhasil di perbaharui!', icon: 'success', timer: 2000,});
                         setTimeout(function(){ location.reload(); }, 2500);
                     } else {
+                        loading(false);
                         swal({title: 'Oops!', text: data, icon: 'error', timer: 2000,});
                 }
 
             },
             complete: function () {
-                $('#btn-password').text('Simpan');
+                loading(false);
             },
         });
     });
-    
+
+    function loading(state) {
+        if(state) {
+            $('.x-loading').removeClass('d-none');
+            $('.btn-submit').addClass('d-none');
+        } else {
+            $('.x-loading').addClass('d-none');
+            $('.btn-submit').removeClass('d-none');
+        }
+    }
    
 });
 

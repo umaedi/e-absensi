@@ -214,14 +214,14 @@
         element = document.getElementById('map');
 
         mapOptions = {
-        zoom: 16,
-        center: {
-            lat: parseFloat(lat),
-            lng: parseFloat(long),
-        },
-        disableDefaultUI: false,
-        scrollWheel: true, 
-        draggable: false, 
+            zoom: 16,
+            center: {
+                lat: parseFloat(lat),
+                lng: parseFloat(long),
+            },
+            disableDefaultUI: false,
+            scrollWheel: true, 
+            draggable: false, 
         };
 
         map = new google.maps.Map(element, mapOptions);
