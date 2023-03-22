@@ -20,9 +20,9 @@ class Stap extends Authenticatable
         'remember_token'
     ];
 
-    public function dinas()
+    public function opd()
     {
-        return $this->belongsTo(Dinas::class);
+        return $this->belongsTo(Opd::class);
     }
 
     public function jabatan()

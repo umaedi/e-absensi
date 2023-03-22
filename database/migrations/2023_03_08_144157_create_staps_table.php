@@ -15,13 +15,14 @@ return new class extends Migration
     {
         Schema::create('staps', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('dinas_id');
+            $table->foreignId('opd_id');
             $table->foreignId('jabatan_id');
             $table->string('nip')->unique();
             $table->string('name');
             $table->string('email')->unique();
             $table->string('no_tlp')->nullable();
             $table->string('password');
+            $table->string('radius')->nullable();
             $table->string('image')->default('avatar.jpg');
             $table->string('remember_token')->nullable();
             $table->timestamps();

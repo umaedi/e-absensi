@@ -34,8 +34,8 @@
                     </div>
                     <div class="form-group boxed">
                         <div class="input-wrapper">
-                            <label class="label" for="password4">Dinas</label>
-                            <input type="text" class="form-control" value="{{ $data['stap']->dinas->nama_dinas }}" readonly>
+                            <label class="label" for="password4">Nama OPD</label>
+                            <input type="text" class="form-control" value="{{ $data['stap']->opd->nama_opd }}" readonly>
                         </div>
                     </div>
                     <hr>

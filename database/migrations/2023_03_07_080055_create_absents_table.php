@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('absents', function (Blueprint $table) {
             $table->id();
             $table->foreignId('stap_id');
-            $table->foreignId('dinas_id');
+            $table->foreignId('opd_id');
             $table->date('tanggal');
             $table->string('jam_masuk');
             $table->string('jam_pulang')->nullable();

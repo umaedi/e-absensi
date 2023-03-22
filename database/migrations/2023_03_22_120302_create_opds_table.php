@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('dinas', function (Blueprint $table) {
+        Schema::create('opds', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_dinas');
+            $table->string('nama_opd');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dinas');
+        Schema::dropIfExists('opds');
     }
 };

@@ -10,7 +10,7 @@ class Absent extends Model
     use HasFactory;
     protected $fillable = [
         'stap_id',
-        'dinas_id',
+        'opd_id',
         'tanggal',
         'jam_masuk',
         'jam_pulang',

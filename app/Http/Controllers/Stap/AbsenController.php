@@ -58,7 +58,7 @@ class AbsenController extends Controller
                 try {
                     $absent->where('stap_id', $stap->id)->update([
                         'stap_id'   => $stap->id,
-                        'dinas_id'  => $stap->dinas->id,
+                        'opd_id'  => $stap->opd->id,
                         'tanggal'   => date('Y-m-d'),
                         'jam_pulang' => date('H:i:s'),
                         'lat_long_pulang'   => $request->latLong,
@@ -99,7 +99,7 @@ class AbsenController extends Controller
                 try {
                     Absent::create([
                         'stap_id'           => $stap->id,
-                        'dinas_id'          => $stap->dinas->id,
+                        'opd_id'          => $stap->opd->id,
                         'tanggal'           => date('Y-m-d'),
                         'jam_masuk'         => date('H:i:s'),
                         'lat_long_masuk'    => $request->latLong,

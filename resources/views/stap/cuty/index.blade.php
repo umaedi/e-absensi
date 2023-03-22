@@ -32,14 +32,14 @@
                         <button id="printPage" class="btn btn-warning mt-1"><ion-icon name="print-outline" role="img" class="md hydrated" aria-label="print outline"></ion-icon> Cetak</button>
                         <button type="button" data-toggle="modal" data-target="#modal-add" class="btn btn-success mt-1 btn-clear"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
-                          </svg> Tambah Cuty</button>
+                          </svg> Tambah Izin</button>
                     </div>  
                 </div>
             </div>
         </div>
     </div>
     <div class="section mt-2">
-        <div class="section-title">Data Permohonan Cuti</div>
+        <div class="section-title">Data Permohonan Izin</div>
         <div class="card">
             <div class="table-responsive" id="x-data-table">
                 
@@ -49,7 +49,7 @@
     <div class="modal fade modalbox" id="modal-add" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header"><h5 class="modal-title">Tambah Permohonan Cuti</h5><a href="javascript:;" data-dismiss="modal">Close</a>
+                <div class="modal-header"><h5 class="modal-title">Tambah Permohonan Izin</h5><a href="javascript:;" data-dismiss="modal">Close</a>
                 </div>
                 <div class="modal-body">
                     <form id="tambahIzin" autocomplete="off">
@@ -121,7 +121,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Permohonan Cuti</h5>
+                    <h5 class="modal-title">Edit Permohonan Izin</h5>
                     <a href="javascript:;" data-dismiss="modal">Close</a>
                 </div>
                 <div class="modal-body">
@@ -137,24 +137,24 @@
                         <div class="form-group">
                             <label for="status_update" class="label my-2">Kategori Izin</label>
                             <select class="form-control" id="status_update" name="status">
-                              <option id="ketIzin" value="1">Sakit</option>
+                              <option value="1">Sakit</option>
                               <option value="2">Cuti</option>
                               <option value="3">Lainya</option>
                             </select>
                           </div>
                         <div class="form-group basic">
                             <div class="input-wrapper">
-                                <label class="label">Mulai Cuti</label>
+                                <label class="label">Mulai Izin</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="awal-cuty" name="tanggal_awal" value="" required=""><div class="input-group-addon"><ion-icon name="calendar-outline" role="img" class="md hydrated" aria-label="calendar outline"></ion-icon></div>
+                                    <input type="text" class="form-control" id="awal-cuty" name="tanggal_awal" value="" required="" readonly><div class="input-group-addon"><ion-icon name="calendar-outline" role="img" class="md hydrated" aria-label="calendar outline"></ion-icon></div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group basic">
                             <div class="input-wrapper">
-                                <label class="label">Berakhir Cuti</label>
+                                <label class="label">Berakhir Izin</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="akhir-cuty" name="tanggal_akhir" value="" required=""><div class="input-group-addon"><ion-icon name="calendar-outline" role="img" class="md hydrated" aria-label="calendar outline"></ion-icon></div>
+                                    <input type="text" class="form-control" id="akhir-cuty" name="tanggal_akhir" value="" required="" readonly><div class="input-group-addon"><ion-icon name="calendar-outline" role="img" class="md hydrated" aria-label="calendar outline"></ion-icon></div>
                                 </div>
                             </div>
                         </div>
@@ -162,7 +162,7 @@
                             <div class="input-wrapper">
                                 <label class="label">Tanggal Masuk Kerja</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="tanggal-masuk" name="tanggal_masuk" value="" required="">
+                                    <input type="text" class="form-control" id="tanggal-masuk" name="tanggal_masuk" value="" required="" readonly>
                                     <div class="input-group-addon"><ion-icon name="calendar-outline" role="img" class="md hydrated" aria-label="calendar outline"></ion-icon>
                                     </div>
                                 </div>
@@ -279,9 +279,7 @@
 
         function getCuty(data)
         {
-            console.log(data);
             $('#cuty-id').val(data.id);
-            $('#ketIzin').html(data.keterangan);
             $('#awal-cuty').val(data.tanggal_awal);
             $('#akhir-cuty').val(data.tanggal_akhir);
             $('#tanggal-masuk').val(data.tanggal_masuk);
