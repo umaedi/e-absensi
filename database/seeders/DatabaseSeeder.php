@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Kepalaopd;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\App;
 
@@ -34,9 +36,20 @@ class DatabaseSeeder extends Seeder
             \App\Models\Opd::create($value);
         }
 
+        Kepalaopd::create([
+            'opd_id'  => 1,
+            'jabatan_id'    => 1,
+            'nip'       => '12345678910',
+            'name'      => 'User',
+            'email'     => 'kadis@gmail.com',
+            'password'  => 'kadis23',
+        ]);
+
         $jabatan = [
-            ['nama_jabatan' => 'Stap'],
+            ['nama_jabatan' => 'Kepala Opd'],
+            ['nama_jabatan' => 'Sekretaris'],
             ['nama_jabatan' => 'Kabid'],
+            ['nama_jabatan' => 'Kasi'],
         ];
 
         foreach ($jabatan as $value) {
@@ -44,7 +57,7 @@ class DatabaseSeeder extends Seeder
             \App\Models\Jabatan::create($value);
         }
 
-        $stap = [
+        $pegawai = [
             [
                 'opd_id'  => 1,
                 'jabatan_id'    => 1,
@@ -207,8 +220,8 @@ class DatabaseSeeder extends Seeder
             ],
         ];
 
-        foreach ($stap as $value) {
-            \App\Models\Stap::create($value);
+        foreach ($pegawai as $value) {
+            \App\Models\Pegawai::create($value);
             # code...
         }
     }

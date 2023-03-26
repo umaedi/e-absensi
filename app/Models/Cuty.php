@@ -9,7 +9,8 @@ class Cuty extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'stap_id',
+        'opd_id',
+        'pegawai_id',
         'tanggal_awal',
         'tanggal_akhir',
         'tanggal_masuk',
@@ -21,5 +22,10 @@ class Cuty extends Model
     public function stap()
     {
         return $this->belongsTo(Stap::class);
+    }
+
+    public function opd()
+    {
+        return $this->belongsTo(Opd::class);
     }
 }

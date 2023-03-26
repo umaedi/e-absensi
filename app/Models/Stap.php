@@ -9,7 +9,7 @@ class Stap extends Authenticatable
 {
     use HasFactory;
     protected $fillable = [
-        'dinas_id',
+        'opd_id',
         'jabatan_id',
         'nip',
         'name',
@@ -33,5 +33,10 @@ class Stap extends Authenticatable
     public function cuty()
     {
         return $this->hasMany(Cuty::class);
+    }
+
+    public function absent()
+    {
+        return $this->hasMany(Stap::class);
     }
 }

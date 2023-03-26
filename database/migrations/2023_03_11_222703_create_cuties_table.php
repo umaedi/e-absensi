@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('cuties', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('stap_id');
+            $table->foreignId('pegawai_id');
+            $table->foreignId('opd_id');
             $table->string('tanggal_awal');
             $table->string('tanggal_akhir');
             $table->string('tanggal_masuk');

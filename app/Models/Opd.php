@@ -14,4 +14,9 @@ class Opd extends Model
     {
         return $this->hasMany(Stap::class);
     }
+
+    public function cuty()
+    {
+        return $this->hasMany(Cuty::class);
+    }
 }

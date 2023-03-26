@@ -9,8 +9,8 @@ class Absent extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'stap_id',
         'opd_id',
+        'pegawai_id',
         'tanggal',
         'jam_masuk',
         'jam_pulang',
@@ -20,4 +20,9 @@ class Absent extends Model
         'photo_pulang',
         'status'
     ];
+
+    public function pegawai()
+    {
+        return $this->belongsTo(Pegawai::class);
+    }
 }

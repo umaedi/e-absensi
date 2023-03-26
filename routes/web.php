@@ -1,12 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Stap\CutyController;
-use App\Http\Controllers\Stap\AbsenController;
-use App\Http\Controllers\Stap\loginController;
-use App\Http\Controllers\Stap\HistoryController;
-use App\Http\Controllers\Stap\ProfileController;
-use App\Http\Controllers\Stap\DashboardController;
+use Maatwebsite\Excel\Row;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,49 +14,64 @@ use App\Http\Controllers\Stap\DashboardController;
 |
 */
 
-Route::get('/', function () {
-
-    if (auth()->guard('stap')->check()) {
-        return redirect('/stap/dashboard');
-    }
-    return view('stap.login.index');
+Route::get('opd/admin', function () {
+    return view('opd.login.index');
 });
 
+Route::prefix('opd')->group(function () {
+    Route::middleware(['opd', 'pegawai'])->group(function () {
+        Route::get('/dashboard', \App\Http\Controllers\Opd\Dashboard::class)->name('opd.dashboard');
 
-Route::prefix('stap')->group(function () {
+        Route::controller(\App\Http\Controllers\Opd\PegawaiController::class)->group(function () {
+            Route::get('/pegawai', 'index');
+            Route::get('/pegawai/{id}', 'show')->name('opd.pejabat.show');
+            Route::post('/pegawai/update/{id}', 'update')->name('opd.pegawai.update');
+        });
+    });
+});
+
+Route::get('/', function () {
+
+    if (auth()->guard('pegawai')->check()) {
+        return redirect('/pegawai/dashboard');
+    }
+    return view('pegawai.login.index');
+});
+
+Route::prefix('pegawai')->group(function () {
     //route login stap
-    Route::post('/login', loginController::class)->name('stap.login');
+    Route::post('/login', \App\Http\Controllers\Pegawai\loginController::class)->name('pegawai.login');
 
-    Route::middleware('stap')->group(function () {
+    Route::middleware('pegawai')->group(function () {
         //route dashboard stap
-        Route::get('/dashboard', DashboardController::class)->name('stap.dashboard');
+        Route::get('/dashboard', \App\Http\Controllers\Pegawai\DashboardController::class)->name('pegawai.dashboard');
 
         //route absensi
-        Route::controller(AbsenController::class)->group(function () {
-            Route::get('absent', 'index')->name('stap.absent');
-            Route::post('absent/store', 'store')->name('stap.absen.store');
+        Route::controller(\App\Http\Controllers\Pegawai\AbsenController::class)->group(function () {
+            Route::get('absent', 'index')->name('pegawai.absent');
+            Route::post('absent/store', 'store')->name('pegawai.absen.store');
         });
 
         //histori absensi
-        Route::get('/history', [HistoryController::class, 'index'])->name('stap.histories');
-        Route::get('/history/print', [HistoryController::class, 'print'])->name('stap.histories.print');
+        Route::get('/history', [\App\Http\Controllers\Pegawai\HistoryController::class, 'index'])->name('pegawai.histories');
+        Route::get('/history/print', [\App\Http\Controllers\Pegawai\HistoryController::class, 'print'])->name('pegawai.histories.print');
 
-        Route::controller(ProfileController::class)->group(function () {
-            Route::get('/profile', 'index')->name('stap.profile');
+        Route::controller(\App\Http\Controllers\Pegawai\ProfileController::class)->group(function () {
+            Route::get('/profile', 'index')->name('pegawai.profile');
             Route::post('/profile/update', 'updateProfile');
             Route::post('/profile/update/password', 'updatePassword');
         });
 
-        Route::controller(CutyController::class)->group(function () {
-            Route::get('/cuty', 'index')->name('stap.izin');
-            Route::post('/cuty/store', 'store');
-            Route::post('/cuty/update', 'update');
+        Route::controller(\App\Http\Controllers\Pegawai\CutyController::class)->group(function () {
+            Route::get('/izin', 'index')->name('pegawai.izin');
+            Route::post('/izin/store', 'store');
+            Route::post('/izin/update', 'update');
         });
 
-        Route::get('/logout', \App\Http\Controllers\Stap\LogoutController::class)->name('stap.logout');
+        Route::get('/logout', \App\Http\Controllers\Pegawai\LogoutController::class)->name('pegawai.logout');
     });
 
     Route::get('/ayokabsent', function () {
-        return view('stap.qrcode.index');
+        return view('pegawai.qrcode.index');
     });
 });

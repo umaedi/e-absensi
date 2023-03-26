@@ -41,9 +41,14 @@ return [
             'provider' => 'users',
         ],
 
-        'stap'  => [
+        'opd'  => [
             'driver'    => 'session',
-            'provider'  => 'staps',
+            'provider'  => 'opds',
+        ],
+
+        'pegawai'  => [
+            'driver'    => 'session',
+            'provider'  => 'pegawais',
         ],
     ],
 
@@ -75,9 +80,14 @@ return [
         //     'table' => 'users',
         // ],
 
-        'staps' => [
+        'opds' => [
             'driver'    => 'eloquent',
-            'model'     => \App\Models\Stap::class,
+            'model'     => \App\Models\Pegawai::class,
+        ],
+
+        'pegawais' => [
+            'driver'    => 'eloquent',
+            'model'     => \App\Models\Pegawai::class,
         ],
     ],
 
