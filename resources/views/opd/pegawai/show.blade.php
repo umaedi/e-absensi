@@ -76,7 +76,7 @@
                   
                 </div>
                 <div class="card-footer text-right">
-                  <button class="btn btn-primary">Lihat Semua</button>
+                  <a href="./persensi/{{ request('id') }}" class="btn btn-primary">Lihat Semua</a>
                 </div>
             </div>
           </div>

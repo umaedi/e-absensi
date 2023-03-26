@@ -20,6 +20,21 @@
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    async function transAjax(data) {
+        html = null;
+        data.headers = {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        await $.ajax(data).done(function(res) {
+            html = res;
+        })
+            .fail(function() {
+                return false;
+            })
+        return html
+    }
+  </script>
   @stack('js')
 </body>
 </html>

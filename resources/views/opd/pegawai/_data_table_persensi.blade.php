@@ -12,8 +12,8 @@
         <?php $no = 1 ?>
         @forelse ($table as $key => $tb)
             <tr>
-                <th scope="row">{{ $no++ }}</th>
-                <td>{{ date('m-d-Y', strtotime($tb->tanggal)) }}</td>
+                <th scope="row">{{ $no ++ }}</th>
+                <td>{{ $tb->tanggal }}</td>
                 <td>{{ $tb->jam_masuk }}</td>
                 <td>{{ $tb->jam_pulang }}</td>
                 @if ($tb->jam_masuk > '08:30:00')

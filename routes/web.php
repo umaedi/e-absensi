@@ -27,6 +27,11 @@ Route::prefix('opd')->group(function () {
             Route::get('/pegawai/{id}', 'show')->name('opd.pejabat.show');
             Route::post('/pegawai/update/{id}', 'update')->name('opd.pegawai.update');
         });
+
+        Route::controller(\App\Http\Controllers\Opd\PersensiController::class)->group(function () {
+            Route::get('/pegawai/persensi/{id}', 'index');
+            Route::get('/persensi/print/{id}', 'print');
+        });
     });
 });
 

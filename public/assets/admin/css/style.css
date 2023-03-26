@@ -134,6 +134,31 @@ a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fab {
 .lead {
   line-height: 34px; }
 
+  @-webkit-keyframes animated-dots {
+    0% {
+        transform: translateX(-100%)
+    }
+  }
+  
+  @keyframes animated-dots {
+    0% {
+        transform: translateX(-100%)
+    }
+  }
+  
+  .animated-dots {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom
+  }
+  
+  .animated-dots:after {
+    display: inline-block;
+    content: "...";
+    -webkit-animation: animated-dots 1.2s steps(4,jump-none) infinite;
+    animation: animated-dots 1.2s steps(4,jump-none) infinite
+  }
+  
 @media (max-width: 575.98px) {
   .lead {
     font-size: 17px;

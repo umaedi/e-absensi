@@ -17,11 +17,18 @@ class PegawaiController extends Controller
         if (\request()->ajax()) {
             $pegawai = Pegawai::query();
 
-            $data['table'] = $pegawai->where('opd_id', $opd->id)->where('role', 0)->paginate(10);
+            $page = request()->get('paginate', 10);
+
+            if (\request('search')) {
+                $pegawai->where('name', 'like', '%' . request('search') . '%');
+            }
+
+            $data['table'] = $pegawai->where('opd_id', $opd->id)->where('role', 0)->paginate($page);
 
             return view('opd.pegawai._data_table_pegawai', $data);
         }
-        return view('opd.pegawai.index');
+        $data['title'] = 'Data Pegawai';
+        return view('opd.pegawai.index', $data);
     }
 
     public function show($id)
@@ -32,7 +39,7 @@ class PegawaiController extends Controller
 
             $data['table'] = Absent::where('opd_id', $opd->id)->where('pegawai_id', $id)->limit(5)->latest()->get();
 
-            return view('opd.persensi._data_table_persensi', $data);
+            return view('opd.pegawai._data_table_persensi', $data);
         }
 
         $data['pegawai'] = Pegawai::where('opd_id', $opd->id)->where('id', $id)->first();

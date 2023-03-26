@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Opd;
 
 use Carbon\Carbon;
 use App\Models\Cuty;
-use App\Models\Stap;
 use App\Models\Absent;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -34,9 +33,9 @@ class Dashboard extends Controller
         }
 
         $data['pegawai']   = Pegawai::where('opd_id', $opd->id)->where('role', 0)->count();
-        $data['hadir'] = Absent::where('opd_id', $opd->id)->count();
-        $data['terlambat'] = Absent::where('opd_id', $opd->id)->where('status', '2')->count();
-        $data['izin'] = Cuty::where('opd_id', $opd->id)->where('status', '2')->count();
+        $data['hadir'] = Absent::where('opd_id', $opd->id)->whereDate('tanggal', date('Y-m-d'))->count();
+        $data['terlambat'] = Absent::where('opd_id', $opd->id)->where('status', '2')->whereDate('tanggal', date('Y-m-d'))->count();
+        $data['izin'] = Cuty::where('opd_id', $opd->id)->where('status', '2')->whereDate('created_at', date('Y-m-d'))->count();
         $data['tanggal'] = Carbon::now()->isoFormat('dddd, D MMMM Y');
         return view('opd.dashboard.index', $data);
     }
