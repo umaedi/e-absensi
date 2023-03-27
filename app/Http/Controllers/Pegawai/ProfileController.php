@@ -13,7 +13,7 @@ class ProfileController extends Controller
     {
         $data['pegawai'] = auth()->guard('pegawai')->user();
         $data['title']  = 'Profile';
-        return view('pegawai.profile.index', compact('data'));
+        return view('pegawai.profile.index', $data);
     }
 
     public function updateProfile()

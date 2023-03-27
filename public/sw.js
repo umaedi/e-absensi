@@ -11,8 +11,8 @@ const filesToCache = [
     '/',
     '/offline.html',
     '/no-internet.png',
-    '/assets/stap/css/style.css',
-    '/assets/stap/css/bootstrap.css'
+    '/assets/pegawai/css/style.css',
+    '/assets/pegawai/css/bootstrap.css'
 ];
 
 const checkResponse = function (request) {

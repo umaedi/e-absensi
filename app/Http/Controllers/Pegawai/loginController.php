@@ -30,7 +30,7 @@ class loginController extends Controller
             return back()->with('error', 'Email atau Paasword salah');
         }
 
-        if ($pegawai->role === 1) {
+        if ($pegawai->role === 3 || $pegawai->role === 2) {
             auth()->guard('opd')->login($pegawai, 'remember');
         }
 

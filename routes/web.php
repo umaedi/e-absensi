@@ -24,6 +24,8 @@ Route::prefix('opd')->group(function () {
 
         Route::controller(\App\Http\Controllers\Opd\PegawaiController::class)->group(function () {
             Route::get('/pegawai', 'index');
+            Route::get('/pegawai/tambah', 'create')->name('opd.pegawai.create');
+            Route::post('/pegawai/tambah/store', 'store')->name('opd.pegawai.store');
             Route::get('/pegawai/{id}', 'show')->name('opd.pejabat.show');
             Route::post('/pegawai/update/{id}', 'update')->name('opd.pegawai.update');
         });
@@ -31,6 +33,11 @@ Route::prefix('opd')->group(function () {
         Route::controller(\App\Http\Controllers\Opd\PersensiController::class)->group(function () {
             Route::get('/pegawai/persensi/{id}', 'index');
             Route::get('/persensi/print/{id}', 'print');
+        });
+
+        Route::controller(\App\Http\Controllers\Opd\ImportController::class)->group(function () {
+            Route::get('/pegawai/imoort/excel', 'index')->name('opd.pegawai.import');
+            Route::post('/pegawai/import/store', 'store')->name('opd.pegawai.store');
         });
     });
 });

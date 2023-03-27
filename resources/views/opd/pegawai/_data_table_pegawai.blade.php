@@ -49,5 +49,9 @@
         @endforelse
     </tbody>
 </table>
-{{ $table->links('vendor.pagination.stisla-paging') }}
+<div class="container">
+    <div class="row justify-content-center">
+        {{ $table->links('vendor.pagination.stisla-paging') }}
+    </div>
+</div>
 

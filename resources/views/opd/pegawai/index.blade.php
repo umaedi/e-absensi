@@ -13,8 +13,8 @@
             <div class="card mb-3">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-10">
-                            <input type="text" id="search" class="form-control mb-3" placeholder="Cari Pegawai..." name="q">
+                        <div class="col-md-6">
+                            <input type="text" id="search" class="form-control" placeholder="Cari Pegawai..." name="q">
                         </div>
                         <div class="col-md-2">
                             <select class="form-control" id="perPage">
@@ -24,6 +24,12 @@
                                 <option value="50">50</option>
                                 <option value="100">100</option>
                               </select>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="{{ route('opd.pegawai.create') }}" class="btn btn-primary btn-block">TAMBAH PEGAWAI</a>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="{{ route('opd.pegawai.import') }}" class="btn btn-primary btn-block">IMPORT</a>
                         </div>
                     </div>
                 </div>

@@ -16,14 +16,14 @@ return new class extends Migration
         Schema::create('pegawais', function (Blueprint $table) {
             $table->id();
             $table->foreignId('opd_id');
-            $table->foreignId('jabatan_id');
             $table->string('nip')->unique();
             $table->string('name');
+            $table->string('jabatan');
             $table->string('email')->unique();
             $table->string('no_tlp')->nullable();
             $table->string('password');
             $table->string('radius')->nullable();
-            $table->integer('role')->default(0);
+            $table->integer('role')->default(1);
             $table->string('image')->default('avatar.jpg');
             $table->string('remember_token')->nullable();
             $table->timestamps();

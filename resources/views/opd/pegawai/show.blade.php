@@ -14,7 +14,7 @@
           <div class="col-12 col-md-12 col-lg-5">
             <div class="card profile-widget">
               <div class="profile-widget-header">
-                <img alt="image" src="{{ asset('storage/pegawai/img/profile/'.$pegawai->image) }}" class="rounded-circle profile-widget-picture">
+                <img alt="image" src="{{ asset('storage/pegawai/img/profile/'.$pegawai->image ?? ) }}" class="rounded-circle profile-widget-picture">
                 <div class="profile-widget-items">
                   <div class="profile-widget-item">
                     <div class="profile-widget-item-label">Masuk</div>

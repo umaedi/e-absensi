@@ -7,6 +7,7 @@ use App\Models\Absent;
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Opd;
 use Illuminate\Support\Facades\Session;
 
 class PegawaiController extends Controller
@@ -23,7 +24,7 @@ class PegawaiController extends Controller
                 $pegawai->where('name', 'like', '%' . request('search') . '%');
             }
 
-            $data['table'] = $pegawai->where('opd_id', $opd->id)->where('role', 0)->paginate($page);
+            $data['table'] = $pegawai->where('opd_id', $opd->id)->where('role', 1)->paginate($page);
 
             return view('opd.pegawai._data_table_pegawai', $data);
         }
@@ -64,6 +65,22 @@ class PegawaiController extends Controller
 
         $msg['success'] = true;
         $msg['message'] = 'Profil Berhasil Diperbaharui!';
+        Session::flash('feedback', $msg);
+        return back();
+    }
+
+    public function create()
+    {
+        $data['opds'] = Opd::all();
+        $data['title'] = 'Tambah Pegawai';
+        return view('opd.pegawai.create', $data);
+    }
+
+    public function store(Request $request)
+    {
+        Pegawai::create($request->except('_token'));
+        $msg['success'] = true;
+        $msg['message'] = 'Data Pegawai Berhasil Di Simpan!';
         Session::flash('feedback', $msg);
         return back();
     }

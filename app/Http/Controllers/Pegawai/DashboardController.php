@@ -36,7 +36,7 @@ class DashboardController extends Controller
         $data['tanggal'] = Carbon::now()->format('d M Y');
         $data['hadir'] = Absent::where('pegawai_id', $pegawai->id)->count();
         $data['terlambat'] = Absent::where('pegawai_id', $pegawai->id)->where('status', '2')->count();
-        $data['pegawai'] = Pegawai::where('opd_id', $pegawai->opd->id)->where('role', 0)->count();
+        $data['pegawai'] = Pegawai::where('opd_id', $pegawai->opd->id)->where('role', 1)->count();
         $data['sakit'] = Cuty::where('pegawai_id', $pegawai->id)->where('status', '2')->count();
         $data['cuty'] = Cuty::where('pegawai_id', $pegawai->id)->where('status', '2')->count();
 

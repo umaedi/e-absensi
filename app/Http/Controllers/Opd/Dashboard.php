@@ -19,10 +19,6 @@ class Dashboard extends Controller
      */
     public function __invoke(Request $request)
     {
-        if (auth()->guard('pegawai')->user()->role !== 1) {
-            return abort(403);
-        }
-
         $opd = auth()->guard('opd')->user();
 
         if (\request()->ajax()) {
@@ -32,7 +28,7 @@ class Dashboard extends Controller
             return view('opd.dashboard._data_table_stap', $data);
         }
 
-        $data['pegawai']   = Pegawai::where('opd_id', $opd->id)->where('role', 0)->count();
+        $data['pegawai']   = Pegawai::where('opd_id', $opd->id)->where('role', 1)->count();
         $data['hadir'] = Absent::where('opd_id', $opd->id)->whereDate('tanggal', date('Y-m-d'))->count();
         $data['terlambat'] = Absent::where('opd_id', $opd->id)->where('status', '2')->whereDate('tanggal', date('Y-m-d'))->count();
         $data['izin'] = Cuty::where('opd_id', $opd->id)->where('status', '2')->whereDate('created_at', date('Y-m-d'))->count();

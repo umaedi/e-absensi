@@ -10,7 +10,7 @@ class Pegawai extends Authenticatable
     use HasFactory;
     protected $fillable = [
         'opd_id',
-        'jabatan_id',
+        'jabatan',
         'nip',
         'name',
         'email',
