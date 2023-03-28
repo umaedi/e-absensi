@@ -15,7 +15,7 @@
                 <h1 class="total">{{ auth()->guard('pegawai')->user()->name }}</h1>
             </div>
             <div class="right">
-                <span class="title">{{ $data['tanggal'] }} </span><h4><span class="clock">Loading...</span></h4>
+                <span class="title">{{ $tanggal }} </span><h4><span class="clock">Loading...</span></h4>
             </div>
         </div>
         

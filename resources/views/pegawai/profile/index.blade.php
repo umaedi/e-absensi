@@ -45,8 +45,12 @@
                         </div>
                     </div>
                     <hr>
-                    @include('layouts.pegawai._loading_submit')
-                    <button id="btn-profile" type="submit" class="btn-submit btn btn-primary mr-1 btn-lg btn-block btn-profile">Simpan</button>
+                    {{-- @include('layouts.pegawai._loading_submit') --}}
+                    <button id="btn_loading" class="btn btn-primary btn-lg btn-block d-none" type="button">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Loading...
+                    </button>
+                    <button id="btn_submit" type="submit" class="btn-submit btn btn-primary mr-1 btn-lg btn-block btn-profile">Simpan</button>
                 </div>
             </div>
         </div>
@@ -70,8 +74,11 @@
                         </div>
                     </div>
                     <hr>
-                    @include('layouts.pegawai._loading_submit')
-                    <button id="btn-password" type="submit" class="btn-submit btn btn-primary mr-1 btn-lg btn-block">Simpan</button>
+                    <button id="btn_loading2" class="btn btn-primary btn-lg btn-block d-none" type="button">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Loading...
+                    </button>
+                    <button id="btn_password" type="submit" class="btn-submit btn btn-primary mr-1 btn-lg btn-block">Simpan</button>
                 </form>
             </div>
         </div>
@@ -82,8 +89,12 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $('#update-profile').submit(function (e) {
-        loading(true);
+
+        $('#btn_loading').removeClass('d-none');
+        $('#btn_submit').addClass('d-none');
+
         e.preventDefault();
+            
             $.ajax({
                 url:"/pegawai/profile/update",
                 type: "POST",
@@ -92,26 +103,27 @@ $(document).ready(function() {
                 contentType: false,
                 cache: false,
                 async: false,
-                beforeSend: function () { 
-                    loading(true);
-                },
                 success: function (data) {
                     if (data) {
-                        loading(false);
                         swal({title: 'Berhasil!', text: 'Profil berhasil di perbaharui!', icon: 'success', timer: 2000,});
                     } else {
-                        loading(false);
                         swal({title: 'Oops!', text: data, icon: 'error', timer: 2000,});
                 }
-
+                
             },
-            
-        });
+             complete: function () {
+                $('#btn_loading').addClass('d-none');
+                $('#btn_submit').removeClass('d-none');
+            },
+        });     
     });
 
     $('#update-password').submit(function (e) {
         e.preventDefault();
-        loading(true);
+
+        $('#btn_loading2').removeClass('d-none');
+        $('#btn_password').addClass('d-none');
+
             $.ajax({
                 url:"/pegawai/profile/update/password",
                 type: "POST",
@@ -120,38 +132,22 @@ $(document).ready(function() {
                 contentType: false,
                 cache: false,
                 async: false,
-                beforeSend: function () { 
-                    loading(true);
-                },
                 success: function (data) {
                     if (data) {
-                        loading(false);
                         swal({title: 'Berhasil!', text: 'Password berhasil di perbaharui!', icon: 'success', timer: 2000,});
                         setTimeout(function(){ location.reload(); }, 2500);
                     } else {
-                        loading(false);
                         swal({title: 'Oops!', text: data, icon: 'error', timer: 2000,});
                 }
 
             },
             complete: function () {
-                loading(false);
+                $('#btn_loading2').addClass('d-none');
+                $('#btn_password').removeClass('d-none');
             },
         });
     });
-
-    function loading(state) {
-        if(state) {
-            console.log('ok');
-            $('.x-loading').removeClass('d-none');
-            // $('.btn-submit').addClass('d-none');
-        } else {
-            console.log('err');
-            $('.x-loading').addClass('d-none');
-            // $('.btn-submit').removeClass('d-none');
-        }
-    }
-   
+ 
 });
 
 function previewImg(){

@@ -16,7 +16,7 @@ class AbsenController extends Controller
         $data['tanggal'] = Carbon::now()->format('d M Y');
         $data['title']  = 'Absen Pegawai';
 
-        return view('pegawai.absent.index', compact('data'));
+        return view('pegawai.absent.index', $data);
     }
 
     public function store(Request $request)

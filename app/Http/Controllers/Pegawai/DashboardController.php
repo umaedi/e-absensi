@@ -42,6 +42,6 @@ class DashboardController extends Controller
 
         $data['title'] = 'Dashboard Stap';
 
-        return view('pegawai.dashboard.index', compact('data'));
+        return view('pegawai.dashboard.index', $data);
     }
 }

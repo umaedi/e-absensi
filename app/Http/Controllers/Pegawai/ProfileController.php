@@ -51,7 +51,10 @@ class ProfileController extends Controller
         $pegawai = auth()->guard('pegawai')->user();
         if (\request()->ajax()) {
             $pegawai =  Pegawai::findOrfail($pegawai->id);
-            $pegawai->update(\request()->except('_token'));
+            $pegawai->update([
+                'email'     => request()->email ? request()->email : $pegawai->email,
+                'password'  => request()->password ? request()->password : $pegawai->password
+            ]);
             return response()->json([
                 'success'   => true,
                 'message'   => 'Password berhasil di perbaharui!'

@@ -26,7 +26,7 @@ class CutyController extends Controller
         }
 
         $data['title']  = 'Data Permohonan Cuty';
-        return view('pegawai.cuty.index', compact('data'));
+        return view('pegawai.cuty.index', $data);
     }
 
     public function store()

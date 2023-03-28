@@ -16,7 +16,7 @@
                     <h1 class="total">{{ auth()->guard('pegawai')->user()->name }}</h1>
                 </div>
                 <div class="right">
-                    <span class="title">{{ $data['tanggal'] }} </span><h4><span class="clock">Loading...</span></h4>
+                    <span class="title">{{ $tanggal }} </span><h4><span class="clock">Loading...</span></h4>
                 </div>
             </div>
             <div class="wallet-footer">
@@ -41,7 +41,7 @@
     </div>
     <div class="section">
         <div class="row mt-2">
-            @if (empty($data['absen']['jam_masuk']))
+            @if (empty($absen->jam_masuk))
             <div class="col-6">
                 <a href="./absent">
                     <div class="stat-box bg-secondary">
@@ -59,7 +59,7 @@
             </div>
             @endif
        
-            @if (empty($data['absen']['jam_pulang']))
+            @if (empty($absen->jam_pulang))
             <div class="col-6">
                 <a href="./absent">
                     <div class="stat-box bg-secondary">
@@ -106,7 +106,7 @@
                         </div>
                         <div>
                             <strong>Hadir</strong>
-                            <p>{{ $data['hadir'] }} Hari</p>
+                            <p>{{ $hadir }} Hari</p>
                         </div>
                     </div>
                 </a>
@@ -119,7 +119,7 @@
                         </div>
                         <div>
                             <strong>Izin</strong>
-                            <p>{{ $data['cuty'] }} Hari</p>
+                            <p>{{ $cuty }} Hari</p>
                         </div>
                     </div>
                 </a>
@@ -133,7 +133,7 @@
                         </div>
                         <div>
                             <strong>Terlambat</strong>
-                            <p>{{ $data['terlambat'] }} hari</p>
+                            <p>{{ $terlambat }} hari</p>
                         </div>
                     </div>
                 </a>
@@ -147,7 +147,7 @@
                         </div>
                         <div>
                             <strong>Pegawai</strong>
-                            <p>{{ $data['pegawai'] }} Pegawai</p>
+                            <p>{{ $pegawai }} Pegawai</p>
                         </div>
                     </div>
                 </a>
@@ -161,7 +161,7 @@
                         </div>
                         <div>
                             <strong>Sakit</strong>
-                            <p>{{ $data['sakit'] }} Hari</p>
+                            <p>{{ $sakit }} Hari</p>
                         </div>
                     </div>
                 </a>

@@ -9,7 +9,7 @@
                         <div class="form-group basic">
                             <div class="input-wrapper">
                                 <div class="input-group">
-                                    <input id="tanggalAwal" type="text" class="form-control datepicker start_date" name="tanggal_awal" placeholder="Tanggal Awal">
+                                    <input id="tanggalAwal" type="text" class="form-control datepicker start_date" name="tanggal_awal" placeholder="Tanggal Awal" readonly>
                                     <div class="input-group-addon"><ion-icon name="calendar-outline" role="img" class="md hydrated" aria-label="calendar outline"></ion-icon>
                                     </div>
                                 </div>
@@ -20,7 +20,7 @@
                         <div class="form-group basic">
                             <div class="input-wrapper">
                                 <div class="input-group">
-                                    <input id="tanggalAkhir" type="text" name="tanggal_akhir" placeholder="Tanggal Akhir" class="form-control datepicker end_date">
+                                    <input id="tanggalAkhir" type="text" name="tanggal_akhir" placeholder="Tanggal Akhir" class="form-control datepicker end_date" readonly>
                                     <div class="input-group-addon"><ion-icon name="calendar-outline" role="img" class="md hydrated" aria-label="calendar outline"></ion-icon>
                                     </div>
                                 </div>
