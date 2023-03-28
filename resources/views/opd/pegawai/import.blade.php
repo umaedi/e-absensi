@@ -15,16 +15,17 @@
                 @include('layouts.opd._alert_feedback', ['feedback' => $feedback])
                 @endif
                 <div class="card-body">
-                    <form>
+                    <form action="{{ route('opd.pegawai.store') }}" enctype="multipart/form-data" method="POST">
+                        @csrf
                         <div class="row">
                           <div class="col-md-8">
-                            <input type="file" class="form-control" placeholder="First name">
+                            <input type="file" class="form-control" name="file">
                           </div>
                           <div class="col-md-2">
                             <button type="submit" class="btn btn-primary btn-block">IMPORT</button>
                           </div>
                           <div class="col-md-2">
-                            <button type="submit" class="btn btn-primary btn-block">TEMPLATE</button>
+                            <a href="{{ asset('assets/pegawai/excel/template-pegawai.xlsx') }}" target="_blank" class="btn btn-primary btn-block">TEMPLATE</a>
                           </div>
                         </div>
                       </form>

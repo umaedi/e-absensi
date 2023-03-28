@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Opd;
 
-use App\Http\Controllers\Controller;
-use App\Imports\PegawaiImport;
 use Illuminate\Http\Request;
+use App\Imports\PegawaiImport;
+use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Session;
 
 class ImportController extends Controller
 {
@@ -23,5 +24,9 @@ class ImportController extends Controller
         Excel::import(new PegawaiImport(), $request->file('file'));
 
         return back();
+        // $msg['success'] = true;
+        // $msg['message'] = 'Profil Berhasil Diperbaharui!';
+        // Session::flash('feedback', $msg);
+        // return redirect('/opd/pegawai');
     }
 }

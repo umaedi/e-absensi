@@ -11,6 +11,9 @@
       <div class="row">
         <div class="col-lg-12 col-md-12 col-12 col-sm-12">
             <div class="card mb-3">
+                @if($feedback = session('feedback'))
+                @include('layouts.opd._alert_feedback', ['feedback' => $feedback])
+                @endif
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">

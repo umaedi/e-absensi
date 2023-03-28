@@ -33,7 +33,10 @@ class ProfileController extends Controller
 
             $pegawai = Pegawai::findOrfail($pegawai->id);
             $pegawai->update([
+                'nip'   => request()->nip,
                 'name'  => request()->name,
+                'jabatan'  => request()->jabatan,
+                'no_tlp'  => request()->no_tlp,
                 'image' => $image ? $image->hashName() : $pegawai->image,
             ]);
             return response()->json([

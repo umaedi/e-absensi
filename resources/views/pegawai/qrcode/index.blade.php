@@ -1,4 +1,4 @@
-@extends('layouts.stap.auth')
+@extends('layouts.pegawai.auth')
 @section('content')
 <section class="section">
   <div class="mt-3">
@@ -7,7 +7,7 @@
         <div class="card card-primary text-center">
           <div class="card-header"><h4>{{ __('QR CODE') }}</h4></div>
           <div class="card-body">
-            <img src="{{ asset('assets/stap/qrcode/qrcode.png') }}" alt="" width="100%">
+            <img src="{{ asset('assets/pegawai/qrcode/qrcode.png') }}" alt="" width="100%">
           </div>
         </div>
         <div class="simple-footer text-center mt-3">

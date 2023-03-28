@@ -32,8 +32,8 @@ class HistoryController extends Controller
         $data['tanggal'] = Carbon::now()->format('d M Y');
         $data['hadir'] = $absent->where('pegawai_id', $pegawai_id)->count();
         $data['terlambat'] = $absent->where('pegawai_id', $pegawai_id)->where('status', '2')->count();
-        $data['sakit'] = $cuty->where('pegawai_id', $pegawai_id)->where('status', '1')->count();
-        $data['cuty'] = $cuty->where('pegawai_id', $pegawai_id)->where('status', '2')->count();
+        $data['sakit'] = $cuty->where('pegawai_id', $pegawai_id)->where('status', '2')->count();
+        $data['cuty'] = $cuty->where('pegawai_id', $pegawai_id)->where('status', '3')->count();
         $data['title'] = 'Data History Absensi';
 
         return view('pegawai.history.index', compact('data'));

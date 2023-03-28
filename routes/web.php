@@ -78,6 +78,7 @@ Route::prefix('pegawai')->group(function () {
             Route::get('/izin', 'index')->name('pegawai.izin');
             Route::post('/izin/store', 'store');
             Route::post('/izin/update', 'update');
+            Route::get('/izin/print', 'print');
         });
 
         Route::get('/logout', \App\Http\Controllers\Pegawai\LogoutController::class)->name('pegawai.logout');

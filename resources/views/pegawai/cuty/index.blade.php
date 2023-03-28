@@ -65,9 +65,11 @@
                         <div class="form-group">
                             <label for="status" class="label my-2">Kategori Izin</label>
                             <select class="form-control" id="status" name="status">
-                              <option value="1">Sakit</option>
-                              <option value="2">Cuty</option>
-                              <option value="3">Lainya</option>
+                              <option value="1">Izin</option>
+                              <option value="2">Sakit</option>
+                              <option value="3">Cuti</option>
+                              <option value="4">Dinas Luar</option>
+                              <option value="5">Lainya</option>
                             </select>
                           </div>
                         <div class="form-group basic">
@@ -213,6 +215,10 @@
                 filterTable();
             });
 
+            $('#printPage').click(function() {
+                printPage();
+            });
+
             $('#tambahIzin').submit(function (e) {
             e.preventDefault();
             $('#btn_simpan').text('Proses...');
@@ -316,6 +322,12 @@
         function loadPaginate(to) {
             page = to
             filterTable()
+        }
+
+        function printPage(){
+            var tanggalAwal = $('#tanggalAwal').val();
+            var tanggalAkhir = $('#tanggalAkhir').val();
+            window.location.href = "/pegawai/izin/print?tanggal_awal="+tanggalAwal+"&tanggal_akhir="+tanggalAkhir;
         }
     </script>
 @endpush

@@ -25,11 +25,6 @@ class Pegawai extends Authenticatable
         return $this->belongsTo(Opd::class);
     }
 
-    public function jabatan()
-    {
-        return $this->belongsTo(Jabatan::class);
-    }
-
     public function cuty()
     {
         return $this->hasMany(Cuty::class);

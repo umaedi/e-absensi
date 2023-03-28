@@ -17,7 +17,7 @@
                     <div class="form-group boxed">
                         <div class="input-wrapper">
                             <label class="label" for="text4">NIP</label>
-                            <input type="text" class="form-control" required value="{{ $pegawai->nip }}" readonly>
+                            <input type="text" class="form-control" required value="{{ $pegawai->nip }}" name="nip">
                         </div>
                     </div>
                     <div class="form-group boxed">
@@ -29,13 +29,19 @@
                     <div class="form-group boxed">
                         <div class="input-wrapper">
                             <label class="label" for="select4">Jabatan</label>
-                            <input type="text" class="form-control" value="{{ $pegawai->jabatan }}" readonly>
+                            <input type="text" class="form-control" value="{{ $pegawai->jabatan }}" name="jabatan">
+                        </div>
+                    </div>
+                    <div class="form-group boxed">
+                        <div class="input-wrapper">
+                            <label class="label" for="no_tlp">No Tlp</label>
+                            <input type="text" class="form-control" value="{{ $pegawai->no_tlp }}" name="no_tlp">
                         </div>
                     </div>
                     <div class="form-group boxed">
                         <div class="input-wrapper">
                             <label class="label" for="password4">Nama OPD</label>
-                            <input type="text" class="form-control" value="{{ $pegawai->opd->nama_opd }}" readonly>
+                            <input type="text" class="form-control" value="{{ $pegawai->opd->nama_opd }}" name="">
                         </div>
                     </div>
                     <hr>
@@ -59,8 +65,8 @@
                     </div>
                     <div class="form-group boxed">
                         <div class="input-wrapper">
-                            <label class="label" for="email4">Password baru</label>
-                            <input type="password" class="form-control" name="password" id="employees_password" required="">
+                            <label class="label" for="password">Password baru</label>
+                            <input type="password" class="form-control" name="password" id="password">
                         </div>
                     </div>
                     <hr>
@@ -76,8 +82,8 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $('#update-profile').submit(function (e) {
-        e.preventDefault();
         loading(true);
+        e.preventDefault();
             $.ajax({
                 url:"/pegawai/profile/update",
                 type: "POST",
@@ -93,16 +99,13 @@ $(document).ready(function() {
                     if (data) {
                         loading(false);
                         swal({title: 'Berhasil!', text: 'Profil berhasil di perbaharui!', icon: 'success', timer: 2000,});
-                        setTimeout(function(){ location.reload(); }, 2500);
                     } else {
                         loading(false);
                         swal({title: 'Oops!', text: data, icon: 'error', timer: 2000,});
                 }
 
             },
-            complete: function () {
-                loading(false);
-            },
+            
         });
     });
 
@@ -139,11 +142,13 @@ $(document).ready(function() {
 
     function loading(state) {
         if(state) {
+            console.log('ok');
             $('.x-loading').removeClass('d-none');
-            $('.btn-submit').addClass('d-none');
+            // $('.btn-submit').addClass('d-none');
         } else {
+            console.log('err');
             $('.x-loading').addClass('d-none');
-            $('.btn-submit').removeClass('d-none');
+            // $('.btn-submit').removeClass('d-none');
         }
     }
    
