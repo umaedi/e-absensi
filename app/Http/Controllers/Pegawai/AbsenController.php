@@ -28,7 +28,7 @@ class AbsenController extends Controller
 
             if ($absent && $absent->tanggal == date('Y-m-d')) {
 
-                if (strtotime(date('H:i:s')) < strtotime('15:30:00')) {
+                if (strtotime(date('H:i:s')) < strtotime('14:30:00')) {
                     return response()->json([
                         'success'   => false,
                         'message'   => 'Mohon Maaf Absen Sore Belum Dibuka!'
