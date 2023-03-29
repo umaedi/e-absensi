@@ -160,7 +160,7 @@
                            <ion-icon name="sad" role="img" class="md hydrated" aria-label="sad"></ion-icon>
                         </div>
                         <div>
-                            <strong>Sakit</strong>
+                            <strong>DL</strong>
                             <p>{{ $sakit }} Hari</p>
                         </div>
                     </div>

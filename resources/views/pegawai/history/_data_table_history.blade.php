@@ -15,9 +15,9 @@
                 <th scope="row">{{ $table->firstItem() + $key }}</th>
                 <td>{{ date('d-m-Y', strtotime($tb->tanggal)) }}</td>
                 <td><a href="#" onclick="showAbsen({{ $tb }}, 1)" data-toggle="modal" data-target="#modal-show" data-waktu="masuk">{{ $tb->jam_masuk }}</a></td>
-                <td><a href="#" onclick="showAbsen({{ $tb }}, 2)" data-toggle="modal" data-target="#modal-show" data-waktu="pulang">{{ $tb->jam_pulang }}</a></td>
+                <td><a href="#" onclick="showAbsen({{ $tb }}, 2)" data-toggle="modal" data-target="#modal-show" data-waktu="pulang">{{ $tb->jam_pulang ?? 'Tdk/Blm absen'}}</a></td>
                 @if (strtotime($tb->jam_masuk) > strtotime('10:00:00'))
-                <td>Terlambat</td>
+                <td>Telat 3 jam 5 menit</td>
                 @else
                 <td>Tepat Waktu</td>
                 @endif
