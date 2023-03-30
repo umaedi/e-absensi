@@ -23,7 +23,7 @@
             <div class="wallet-footer">
                 <div class="col-md-12">
                     <input id="x-src" type="hidden" name="image">
-                    <div id="results" class="webcam-capture-body text-center">
+                    <div id="results" class="webcam-capture-body text-center mb-3">
                         <div class="webcam-capture img-fluid">
                             <div class="x-selfie-img container">
                                 <img class="img-fluid lazyload" data-src="{{ asset('assets') }}/pegawai/img/selfie.png" alt="">
@@ -33,6 +33,15 @@
                                 <button id="x-absent" class="btn btn-success btn-lg btn-block" onclick="openCamera(0)">
                                     Ambil photo selfi Anda
                             </button>
+                        </div>
+                    </div>
+                    @include('layouts.pegawai._loading_submit')
+                    <div id="x-action" class="row d-none">
+                        <div class="col-md-6">
+                            <button class="btn btn-primary btn-lg btn-block" onclick="absenStore()">Isi Absen</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button id="x-resetCamera" class="btn btn-warning btn-lg btn-block">Ganti Photo</button>
                         </div>
                     </div>
                 </div>
@@ -121,11 +130,8 @@ function captureimage() {
         document.getElementById('results').innerHTML = 
         `
             <img class="x-img-fluid" id="imageprev" style="border-radius: 15px" src="${data_uri}"/>
-            <div class="mt-3">
-                <button id="buttonAbsen" onclick="absenStore()" class="btn btn-primary">Isi Absen</button>
-                <button id="x-resetCamera" class="btn btn-warning">Coba Lagi</button>
-            </div>
         `
+        $('#x-action').removeClass('d-none');
         Webcam.reset();
         document.getElementById('x-resetCamera').setAttribute('onclick', 'resetCamera()');
         return image = data_uri;
@@ -143,7 +149,7 @@ function resetCamera()
 <script type="text/javascript">
      //isi absen
     async function absenStore() {
-
+            $('#x-action').addClass('d-none');
             var param = {
                 method: 'POST',
                 url: '{{ route('pegawai.absen.store') }}',
@@ -153,14 +159,25 @@ function resetCamera()
                 }
             }
 
+            loadingsubmit(true);
             await transAjax(param).then((res) => {
                 swal({text: res.message, icon: 'success', timer: 3000,}).then(() => {
                     window.location.href = '/pegawai/dashboard';
                 });
             }).catch((err) => {
+                loadingsubmit(false);
                 swal({text: err.responseJSON.message, icon: 'error', timer: 3000,}).then(() => {
                 });
         });
+    }
+
+    function loadingsubmit(state){
+        if(state) {
+            $('#loadingSubmit').removeClass('d-none');
+        }else {
+            $('#loadingSubmit').addClass('d-none');
+            $('#x-action').removeClass('d-none');
+        }
     }
 
 jQuery(function($) {

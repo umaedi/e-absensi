@@ -26,7 +26,7 @@
     <!-- PWA  -->
     <link rel="apple-touch-icon" href="{{ asset('assets/icon/lc_icon_absent.png') }}">
     <link rel="manifest" href="{{ asset('/manifest.json') }}">
-    {{-- @vite([]) --}}
+    @vite([])
 </head>
 
 <body>
