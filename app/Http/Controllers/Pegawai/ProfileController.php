@@ -20,6 +20,11 @@ class ProfileController extends Controller
     {
         $pegawai = auth()->guard('pegawai')->user();
         if (\request()->ajax()) {
+
+            \request()->validate([
+                'image' => 'required|file|mimes:jpg,jpeg,png|max:2048'
+            ]);
+
             if (\request()->file('image')) {
                 $image = request()->file('image');
                 $image->storeAs('public/pegawai/img/profile', $image->hashName());

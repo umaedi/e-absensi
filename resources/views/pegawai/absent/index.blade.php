@@ -51,7 +51,8 @@
 </div>
 @endsection
 @push('js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" async=""></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js"></script>
+<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAD8y5ZQcuol7vxOkXii_wsHqYhCNL0uEM&libraries=geometry&callback"></script>
 <script type="text/javascript">
 
 var latLong = "";
@@ -70,10 +71,9 @@ function openCamera() {
     }
 
     function successCallback(position) {
-        setCamera();
+        getCurrentPosition(position);
         return latLong =  ""+ position.coords.latitude + ","+position.coords.longitude + "";
     }
-
 
     function errorCallback(error) {
         if(error.code == 1) {
@@ -85,7 +85,29 @@ function openCamera() {
         } else {
             swal({title: 'Oops!', text:'Waktu percobaan habis sebelum bisa mendapatkan data lokasi.', icon: 'error', timer: 3000,});
         }
+    }
 
+    //radius
+    var currentLocation = { lat: -4.5383246, lng: 105.2208349 };
+    var radius = 100;
+    function getCurrentPosition(position)
+    {
+        var userLocation = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+        };
+    }
+
+    var distance = google.maps.geometry.spherical.computeDistanceBetween(
+        new google.maps.LatLng(currentLocation),
+        new google.maps.LatLng(this.userLocation)
+    );
+
+    // Jika jarak kurang dari radius
+    if (distance < radius) {
+        setCamera();
+    } else {
+        swal({title: 'Oops!', text:'Mohon Maaf Sepertinya Anda Diluar Radius!', icon: 'error', timer: 3000,});
     }
 
     function setCamera() {

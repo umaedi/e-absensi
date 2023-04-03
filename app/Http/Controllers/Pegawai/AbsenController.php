@@ -55,8 +55,11 @@ class AbsenController extends Controller
                 $file = $folderPath . $fileName;
                 Storage::put($file, $image_base64);
 
+                //update absent
+                $absentUpdate = $absent->where('tanggal', $absent->tanggal);
+
                 try {
-                    $absent->where('tanggal', $absent->tanggal)->update([
+                    $absentUpdate->where('pegawai_id', $absent->pegawai_id)->update([
                         'opd_id'  => $pegawai->opd->id,
                         'pegawai_id'   => $pegawai->id,
                         'tanggal'   => date('Y-m-d'),
