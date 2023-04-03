@@ -11,13 +11,11 @@
     <meta name="theme-color" content="#6777ef">
     <meta name="msapplication-navbutton-color" content="#6777ef">
     <meta name="apple-mobile-web-app-status-bar-style" content="#6777ef">
-    <meta name="robots" content="index, follow">
     <meta name="description" content="DISKOMINFO TUBA">
     <meta name="keywords" content="DISKOMINFO TUBA">
     <meta name="author" content="DISKOMINFO TUBA">
     <meta http-equiv="Copyright" content="DISKOMINFO TUBA">
     <meta name="copyright" content="DISKOMINFO TUBA">
-    <meta itemprop="image" content="sw-content/meta-tag.jpg">
     <link rel="stylesheet" href="{{ asset('assets/pegawai') }}/css/style.css">
     <link rel="stylesheet" href="{{ asset('assets/pegawai') }}/css/sw-custom.css">
     <link rel="stylesheet" href="{{ asset('assets/pegawai') }}/js/plugins/magnific-popup/magnific-popup.css">
@@ -68,7 +66,6 @@ function sw() {
     });
     }
 }
-
 
 async function transAjax(data) {
     html = null;

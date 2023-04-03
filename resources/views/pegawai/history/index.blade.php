@@ -96,7 +96,7 @@
                     </div>
                     <div class="form-group basic">
                         <div class="input-wrapper">
-                            <label class="label">Jam Masuk</label>
+                            <label class="label">Jam Absen</label>
                             <input name="jam_masuk" type="text" class="form-control" value="" readonly><i class="clear-input"><ion-icon name="close-circle" role="img" class="md hydrated" aria-label="close circle"></ion-icon></i>
                         </div>
                     </div>
@@ -194,16 +194,17 @@
     {
         if(waktu === 1) {
             $('.modal-title').html('Detail Absen Pagi');
-            var photo_absen = data.photo_masuk;
+            $('#photoAbsen').attr('src', "{{ asset('storage/pegawai/img') }}/"+ data.photo_masuk);
+            $('input[name=tanggal]').val(data.tanggal);
+            $('input[name=jam_masuk]').val(data.jam_masuk);
+            $('input[name=latlong]').val(data.lat_long_masuk);
         }else {
             $('.modal-title').html('Detail Absen Sore');
-            var photo_absen = data.photo_pulang;
+            $('#photoAbsen').attr('src', "{{ asset('storage/pegawai/img') }}/"+ data.photo_pulang);
+            $('input[name=tanggal]').val(data.tanggal);
+            $('input[name=jam_masuk]').val(data.jam_pulang);
+            $('input[name=latlong]').val(data.lat_long_pulang);
         };
-
-        $('#photoAbsen').attr('src', "{{ asset('storage/pegawai/img') }}/"+ photo_absen);
-        $('input[name=tanggal]').val(data.tanggal);
-        $('input[name=jam_masuk]').val(data.jam_masuk);
-        $('input[name=latlong]').val(data.lat_long_masuk);
 
         const lat = data.lat_long_masuk.substring(10, '');
         const long = data.lat_long_masuk.substring(11);

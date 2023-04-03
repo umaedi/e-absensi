@@ -30,7 +30,7 @@
                             </div>
                         </div>
                             <div class="form-group basic">
-                                <button id="x-absent" class="btn btn-success btn-lg btn-block" onclick="openCamera(0)">
+                                <button id="x-absent" class="btn btn-primary btn-lg btn-block" onclick="openCamera(0)">
                                     Ambil photo selfi Anda
                             </button>
                         </div>
@@ -38,7 +38,7 @@
                     @include('layouts.pegawai._loading_submit')
                     <div id="x-action" class="row d-none">
                         <div class="col-md-6">
-                            <button class="btn btn-primary btn-lg btn-block" onclick="absenStore()">Isi Absen</button>
+                            <button class="btn btn-primary btn-lg btn-block mb-3" onclick="absenStore()">Isi Absen</button>
                         </div>
                         <div class="col-md-6">
                             <button id="x-resetCamera" class="btn btn-warning btn-lg btn-block">Ganti Photo</button>
@@ -162,12 +162,13 @@ function resetCamera()
             loadingsubmit(true);
             await transAjax(param).then((res) => {
                 swal({text: res.message, icon: 'success', timer: 3000,}).then(() => {
+                    loadingsubmit(false);
                     window.location.href = '/pegawai/dashboard';
                 });
             }).catch((err) => {
                 loadingsubmit(false);
                 swal({text: err.responseJSON.message, icon: 'error', timer: 3000,}).then(() => {
-                });
+            });
         });
     }
 

@@ -37,7 +37,7 @@ Route::prefix('opd')->group(function () {
 
         Route::controller(\App\Http\Controllers\Opd\ImportController::class)->group(function () {
             Route::get('/pegawai/imoort/excel', 'index')->name('opd.pegawai.import');
-            Route::post('/pegawai/import/store', 'store')->name('opd.pegawai.store');
+            // Route::post('/pegawai/import/store', 'store')->name('opd.pegawai.store');
         });
     });
 });

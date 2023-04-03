@@ -12,7 +12,6 @@
         <div class="section-title">Profil</div>
         <div class="card">
             <div class="card-body">
-                
                     @csrf
                     <div class="form-group boxed">
                         <div class="input-wrapper">
@@ -45,12 +44,11 @@
                         </div>
                     </div>
                     <hr>
-                    {{-- @include('layouts.pegawai._loading_submit') --}}
                     <button id="btn_loading" class="btn btn-primary btn-lg btn-block d-none" type="button">
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        Loading...
+                        Tunggu sebentar yah...
                     </button>
-                    <button id="btn_submit" type="submit" class="btn-submit btn btn-primary mr-1 btn-lg btn-block btn-profile">Simpan</button>
+                    <button id="btn_profile" type="submit" class="btn-submit btn btn-primary mr-1 btn-lg btn-block btn-profile">Simpan</button>
                 </div>
             </div>
         </div>
@@ -74,9 +72,9 @@
                         </div>
                     </div>
                     <hr>
-                    <button id="btn_loading2" class="btn btn-primary btn-lg btn-block d-none" type="button">
+                    <button id="btn_loading_password" class="btn btn-primary btn-lg btn-block d-none" type="button">
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        Loading...
+                        Tunggu sebentar yah...
                     </button>
                     <button id="btn_password" type="submit" class="btn-submit btn btn-primary mr-1 btn-lg btn-block">Simpan</button>
                 </form>
@@ -88,65 +86,86 @@
 @push('js')
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#update-profile').submit(function (e) {
 
-        $('#btn_loading').removeClass('d-none');
-        $('#btn_submit').addClass('d-none');
+
+    $('#update-profile').submit(async function absenStore(e) {
 
         e.preventDefault();
-            
-            $.ajax({
-                url:"/pegawai/profile/update",
-                type: "POST",
-                data: new FormData(this),
+            var form 	= $(this)[0]; 
+		    var data 	= new FormData(form);
+
+            console.log(data);
+            var param = {
+                method: 'POST',
+                url: '/pegawai/profile/update',
+                data: data,
                 processData: false,
                 contentType: false,
                 cache: false,
-                async: false,
-                success: function (data) {
-                    if (data) {
-                        swal({title: 'Berhasil!', text: 'Profil berhasil di perbaharui!', icon: 'success', timer: 2000,});
-                    } else {
-                        swal({title: 'Oops!', text: data, icon: 'error', timer: 2000,});
-                }
-                
-            },
-             complete: function () {
-                $('#btn_loading').addClass('d-none');
-                $('#btn_submit').removeClass('d-none');
-            },
-        });     
-    });
+            }
 
-    $('#update-password').submit(function (e) {
-        e.preventDefault();
-
-        $('#btn_loading2').removeClass('d-none');
-        $('#btn_password').addClass('d-none');
-
-            $.ajax({
-                url:"/pegawai/profile/update/password",
-                type: "POST",
-                data: new FormData(this),
-                processData: false,
-                contentType: false,
-                cache: false,
-                async: false,
-                success: function (data) {
-                    if (data) {
-                        swal({title: 'Berhasil!', text: 'Password berhasil di perbaharui!', icon: 'success', timer: 2000,});
-                        setTimeout(function(){ location.reload(); }, 2500);
-                    } else {
-                        swal({title: 'Oops!', text: data, icon: 'error', timer: 2000,});
-                }
-
-            },
-            complete: function () {
-                $('#btn_loading2').addClass('d-none');
-                $('#btn_password').removeClass('d-none');
-            },
+            loadingsubmit(true);
+            await transAjax(param).then((res) => {
+                swal({text: res.message, icon: 'success', timer: 3000,}).then(() => {
+                    loadingsubmit(false);
+                    window.location.href = '/pegawai/dashboard';
+                });
+            }).catch((err) => {
+                loadingsubmit(false);
+                swal({text: err.responseJSON.message, icon: 'error', timer: 3000,}).then(() => {
+                window.location.href = '/pegawai/profile';
+            });
         });
+
+        function loadingsubmit(state){
+            if(state) {
+                $('#btn_loading').removeClass('d-none');
+                $('#btn_profile').addClass('d-none');
+            }else {
+                $('#btn_loading').addClass('d-none');
+                $('#btn_profile').removeClass('d-none');
+            }
+        }  
     });
+
+    $('#update-password').submit(async function updatePassword(e) {
+        e.preventDefault();
+
+        var form 	= $(this)[0]; 
+		var data 	= new FormData(form);
+
+        var param = {
+            method: 'POST',
+            url: '/pegawai/profile/update/password',
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+        }
+
+        loadingsubmit(true);
+        await transAjax(param).then((res) => {
+        swal({text: res.message, icon: 'success', timer: 3000,}).then(() => {
+            loadingsubmit(false);
+            window.location.href = '/pegawai/dashboard';
+        });
+    }).catch((err) => {
+        loadingsubmit(false);
+            swal({text: err, icon: 'error', timer: 3000,}).then(() => {
+            window.location.href = '/pegawai/profile';
+            });
+        });  
+    });
+
+    function loadingsubmit(state){
+        if(state) {
+            $('#btn_loading_password').removeClass('d-none');
+            $('#btn_password').addClass('d-none');
+        }else {
+            $('#btn_loading_password').addClass('d-none');
+            $('#btn_password').removeClass('d-none');
+        }
+    }  
  
 });
 

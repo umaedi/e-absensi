@@ -43,7 +43,7 @@
                         </div>
                         <div class="form-group">
                           <label for="opd">OPD ID: <span class="opd_id"></span></label>
-                          <select class="form-control" id="x-opd" name="opd" required>
+                          <select class="form-control" id="x-opd" name="opd_id" required>
                             <option value="">--PILIH OPD--</option>
                             @forelse ($opds as $opd)
                             <option value="{{ $opd->id }}">{{ $opd->nama_opd }}</option>

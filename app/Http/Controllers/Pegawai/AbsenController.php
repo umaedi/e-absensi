@@ -56,14 +56,13 @@ class AbsenController extends Controller
                 Storage::put($file, $image_base64);
 
                 try {
-                    $absent->where('pegawai_id', $pegawai->id)->update([
+                    $absent->where('tanggal', $absent->tanggal)->update([
                         'opd_id'  => $pegawai->opd->id,
                         'pegawai_id'   => $pegawai->id,
                         'tanggal'   => date('Y-m-d'),
                         'jam_pulang' => date('H:i:s'),
                         'lat_long_pulang'   => $request->latLong,
                         'photo_pulang'     => $fileName,
-
                     ]);
                 } catch (QueryException $e) {
                     return response()->json([
@@ -90,11 +89,15 @@ class AbsenController extends Controller
                 $file = $folderPath . $fileName;
                 Storage::put($file, $image_base64);
 
-                if (strtotime(date('H:i:s')) > strtotime('10:00:00')) {
-                    $status = '2';
+                if (strtotime(date('H:i:s')) > strtotime(env('jam_absen'))) {
+                    $jam_masuk = Carbon::parse(date('H:i:s'));
+                    $delay = Carbon::parse(date(env('jam_absen')));
+                    $telat = date_diff($jam_masuk, $delay);
+
+                    $date = $telat->h ? $telat->h . ':' . $telat->i . ':' . $telat->s : $telat->i . ':' . $telat->s;
                 } else {
-                    $status = '1';
-                }
+                    $date = "";
+                };
 
                 try {
                     Absent::create([
@@ -104,7 +107,7 @@ class AbsenController extends Controller
                         'jam_masuk'         => date('H:i:s'),
                         'lat_long_masuk'    => $request->latLong,
                         'photo_masuk'       => $fileName,
-                        'status'            => $status,
+                        'status'            => $date,
                     ]);
                 } catch (QueryException $e) {
                     Storage::delete('public/pegawai/img' . $fileName);

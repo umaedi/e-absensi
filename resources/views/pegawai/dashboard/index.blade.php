@@ -181,7 +181,7 @@
 @endsection
 @push('js')
     <script type="text/javascript">
-        var bulan = "";
+        var bulan = $('#getBulan').val();
         $(document).ready(function() {
             loadData();
 
